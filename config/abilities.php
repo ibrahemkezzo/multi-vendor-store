@@ -1,0 +1,28 @@
+<?php
+return [
+    'category.view'=>'Category View',
+    'category.create'=>'Category Create',
+    'category.update'=>'Category Update',
+    'category.delete'=>'Category Delete',
+    'product.delete'=>'Product Delete',
+    'product.view'=>'Product View',
+    'product.create'=>'Product Create',
+    'product.update'=>'Product Update',
+    'order.view'=>'Order View',
+    'order.create'=>'Order Create',
+    'order.update'=>'Order Update',
+    'order.delete'=>'Order Delete',
+    'user.view'=>'User View',
+    'user.create'=>'User Create',
+    'user.update'=>'User Update',
+    'user.delete'=>'User Delete',
+    'role.view'=>'Role View',
+    'role.create'=>'Role Create',
+    'role.update'=>'Role Update',
+    'role.delete'=>'Role Delete',
+    'admin.view'=>'Admin View',
+    'admin.create'=>'Admin Create',
+    'admin.update'=>'Admin Update',
+    'admin.delete'=>'Admin Delete',
+
+    ];
