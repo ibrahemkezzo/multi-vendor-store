@@ -4,10 +4,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-
                     <form action="" method="post" id="payment-form">
                         <div id="payment-element"></div>
-                        <button type="submit" id="submit" class="btn">
+                        <button type="submit" id="submit" class="btn rounded-pill btn-primary mt-3">
                             <span id="button-text">pay now</span>
                             <span id="spinner">processing...</span>
                         </button>
@@ -33,6 +32,7 @@
 
         // Fetches a payment intent and captures the client secret
         async function initialize() {
+            setLoading(false);
             const {
                 clientSecret
             } = await fetch("{{route('create.stripe.payment-intent',$order->id)}}", {
@@ -55,9 +55,11 @@
 
             const paymentElement = elements.create("payment", paymentElementOptions);
             paymentElement.mount("#payment-element");
+
         }
 
         async function handleSubmit(e) {
+
             e.preventDefault();
             setLoading(true);
 

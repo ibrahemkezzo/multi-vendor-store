@@ -9,6 +9,7 @@ use App\Http\Controllers\front\CurrencyConverterController;
 use App\Http\Controllers\front\HomeController;
 use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\ProductController;
+use App\Http\Controllers\front\ShopStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,9 @@ Route::post('/orders/{order}/stripe/payment-intent', [PaymentController::class, 
 Route::get('/orders/{order}/stripe/callback', [PaymentController::class, 'confirm'])
     ->name('stripe.return');
 
+Route::any('/stripe/webhook',[StripeWebhookController::class,'handle'])
+    ->name('stripe.webhook');
+
 Route::resource('/cart', CartController::class);
 
 Route::get('/checkout', [CheckoutController::class, 'create'])
@@ -60,13 +64,19 @@ Route::post('/checkout', [CheckoutController::class, 'store']);
 Route::post('/currency', [CurrencyConverterController::class, 'store'])
     ->name('currency.store');
 
-Route::any('/stripe/webhook',[StripeWebhookController::class,'handle'])
-    ->name('stripe.webhook');
+Route::get('/shop-grid',[ProductController::class,'index'])
+->name('shop-grid');
+
+Route::get('shop/stores/index',[ShopStoreController::class,'index'])
+->name('shop-stores');
+Route::get('shop/stores/show/{store:slug}',[ShopStoreController::class,'show'])
+->name('shop.stores.show');
 
 Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__ . '/dashboard.php';
 // require __DIR__.'/auth.php';

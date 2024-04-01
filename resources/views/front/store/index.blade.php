@@ -1,4 +1,4 @@
-<x-front-layout title='cart'>
+<x-front-layout title='shop-list'>
 
     <x-slot name='breadcrumb'>
         <div class="breadcrumbs">
@@ -12,8 +12,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href="{{ route('front.home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li><a href="{{ route('product.index') }}">Shop</a></li>
-                            <li>Cart</li>
+                            <li>Shop List</li>
                         </ul>
                     </div>
                 </div>
@@ -28,72 +27,46 @@
                 <!-- Cart List Title -->
                 <div class="cart-list-title">
                     <div class="row">
-                        <div class="col-lg-1 col-md-1 col-12">
+                        <div class="col-lg-2 col-md-2 col-12">
 
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
-                            <p>Product Name</p>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <p>Store Name</p>
+                        </div>
+                        <div class="col-lg-5 col-md-4 col-12">
+                            <p>description</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Quantity</p>
+                            <p>status</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Subtotal</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Discount</p>
-                        </div>
-                        <div class="col-lg-1 col-md-2 col-12">
-                            <p>Remove</p>
-                        </div>
+
                     </div>
                 </div>
                 <!-- End Cart List Title -->
 
 
-                @foreach ($cart->get() as $item)
+                @foreach ($stores as $store)
                     <!-- Cart Single List list -->
                     <div class="cart-single-list">
                         <div class="row align-items-center">
-                            <div class="col-lg-1 col-md-1 col-12">
-                                <a href="product-details.html"><img src="{{ $item->product->image_url }}"
+                            <div class="col-lg-2 col-md-2 col-12">
+                                <a href="product-details.html"><img src="{{ $store->image_url }}"
                                         alt="#"></a>
                             </div>
-                            <div class="col-lg-4 col-md-3 col-12">
-                                <h5 class="product-name"><a href="{{ route('product.show', $item->product->slug) }}">
-                                        {{ $item->product->name }}</a></h5>
+                            <div class="col-lg-3 col-md-4 col-12">
+                                <h5 class="product-name"><a href="{{ route('shop.stores.show', $store->slug) }}">
+                                        {{ $store->name }}</a></h5>
+
+                            </div>
+                            <div class="col-lg-5 col-md-4 col-12">
                                 <p class="product-des">
                                     {{-- <span><em>Memory:</em> 256 GB</span>
                                 <span><em>Color:</em> Space Gray</span> --}}
-                                    <span>{{ $item->product->description }}</span>
+                                    <span>{{ $store->description }}</span>
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                <form action="{{ route('cart.update', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('put')
-                                    <div class="count-input">
-                                        <input type ="number" name="quantity" class="form-control"
-                                            value="{{ $item->quantity }}" />
-                                        @if ($errors->has('quantity'))
-                                            <div class="text-danger">{{ $errors->first() }}</div>
-                                        @endif
-                                    </div>
-                                    <button class="btn-sm btn-light" type="submit">update</button>
-                                </form>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-12">
-                                <p>{{ App\Helpers\Currency::formate($item->product->price * $item->quantity) }}</p>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-12">
-                                <p>—</p>
-                            </div>
-                            <div class="col-lg-1 col-md-2 col-12">
-                                <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="remove-item"><i class="lni lni-close"></i></button>
-                                </form>
+                                <p>{{$store->status}}</p>
                             </div>
                         </div>
                     </div>
@@ -120,7 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-12">
+                            {{-- <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
                                         <li>Cart
@@ -137,7 +110,7 @@
                                         <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!--/ End Total Amount -->

@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- /End Preloader -->
-    
+
     <!-- Start Header Area -->
     <header class="header navbar-area">
         <!-- Start Topbar -->
@@ -215,17 +215,10 @@
                                         <li><a href="product-grids.html">Cables & Adapters</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="product-grids.html">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li>
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                @foreach ($categories as $category)
+                                <li><a href="product-grids.html">{{$category->name}}</a></li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->
@@ -248,12 +241,12 @@
                                             data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
                                             aria-expanded="false" aria-label="Toggle navigation">{{__('Pages')}}</a>
                                         <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item"><a href="about-us.html">{{__('About Us')}}</a></li>
-                                            <li class="nav-item"><a href="faq.html">{{__('Faq')}}</a></li>
-                                            <li class="nav-item"><a href="login.html">{{__('Login')}}</a></li>
-                                            <li class="nav-item"><a href="register.html">{{__('Register')}}</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">{{__('Mail Success')}}</a></li>
-                                            <li class="nav-item"><a href="404.html">{{__('404 Error')}}</a></li>
+                                            <li class="nav-item"><a href="about-us.html">{{__('Home')}}</a></li>
+                                            <li class="nav-item"><a href="faq.html">{{__('Stores')}}</a></li>
+                                            <li class="nav-item"><a href="login.html">{{__('Contact US')}}</a></li>
+                                        <li class="nav-item"><a href="404.html">{{__('About As')}}</a></li>
+                                            <li class="nav-item"><a href="register.html">{{__('Login')}}</a></li>
+                                            <li class="nav-item"><a href="mail-success.html">{{__('Register')}}</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -262,8 +255,8 @@
                                             aria-controls="navbarSupportedContent" aria-expanded="false"
                                             aria-label="Toggle navigation">{{__('Shop')}}</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
-                                            <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
-                                            <li class="nav-item"><a href="product-list.html">Shop List</a></li>
+                                            <li class="nav-item"><a href="{{route('shop-grid')}}">Shop Grid</a></li>
+                                            <li class="nav-item"><a href="{{route('shop-stores')}}">Shop List</a></li>
                                             <li class="nav-item active"><a href="product-details.html">shop Single</a>
                                             </li>
                                             <li class="nav-item"><a href="cart.html">{{__('Cart')}}</a></li>

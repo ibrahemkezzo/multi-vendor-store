@@ -11,7 +11,8 @@ use function Laravel\Prompts\error;
 class ProductController extends Controller
 {
     public function index(){
-
+        $products = Product::all();
+        return view('front.products.index',compact('products'));
     }
     public function show(Product $product){
         if($product->status != 'active'){
