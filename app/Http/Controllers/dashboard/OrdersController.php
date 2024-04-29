@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -12,7 +14,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with(['store:id,name','user:id,name'])->paginate(5);
+
+        return view('dashboard.order.index',['orders'=>$orders]);
     }
 
     /**
@@ -36,7 +40,6 @@ class OrdersController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -44,7 +47,13 @@ class OrdersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $order = Order::with(['items'])->findorFail($id);
+        $stores = Store::all();
+        foreach ($order->items as $item) {
+           $items = $item->name;
+        }
+
+        return view('dashboard.order.edit',['order'=>$order, 'stores'=>$stores,'items'=>$items]);
     }
 
     /**
