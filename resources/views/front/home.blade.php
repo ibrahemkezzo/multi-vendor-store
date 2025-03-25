@@ -98,6 +98,7 @@
                 <x-front.product :product="$product"/>
                 @endforeach
 
+                {{-- {{ dd(555)}} --}}
             </div>
         </div>
     </section>
@@ -205,6 +206,7 @@
             </ul>
         </div>
     </section>
+
     <!-- End Shipping Info -->
     @push('script')
     <script type="text/javascript">

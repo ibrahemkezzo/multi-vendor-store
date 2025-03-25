@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Stripe\ApiOperations\All;
 
 class UsersController extends Controller
 {
@@ -12,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -28,7 +30,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $users = User::all();
+      return view('dashboard.users.index',compact('users'));
     }
 
     /**

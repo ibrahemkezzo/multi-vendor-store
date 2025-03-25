@@ -12,13 +12,13 @@ class CategoryPolicy
     /**
  * Perform pre-authorization checks.
  */
-public function before($user, string $ability)
-{
-    // dd($user);
-    if ($user->super_admin) {
-        return true;
+    public function before($user, string $ability)
+    {
+        // dd($user);
+        if ($user->super_admin) {
+            return true;
+        }
     }
-}
 
 
     /**
@@ -52,7 +52,7 @@ public function before($user, string $ability)
     {
         return $user->hasAbility('category.update');
         // dd($user);
-       
+
     }
 
     /**

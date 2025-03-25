@@ -51,7 +51,7 @@
                         <div class="top-left">
                             <ul class="menu-top-link">
                                 <li>
-                                    <div class="select-position">
+                                    {{-- <div class="select-position">
                                         <form action="{{route('currency.store')}}" method="POST">
                                             @csrf
                                             <select name="currency_code" id="select4" onchange="this.form.submit()">
@@ -63,11 +63,11 @@
                                                 <option value="QAR" @selected('QAR' == Session::get('currency_cod'))>৳ QAR</option>
                                             </select>
                                         </form>
-                                    </div>
+                                    </div> --}}
                                 </li>
                                 <li>
                                     <div class="select-position">
-                                        <form action="{{URL::current()}}" method="get" >
+                                        <form action="#" method="get" >
 
                                             <select name="locale" id="select5" onchange="this.form.submit()">
                                                 <option value="en" @selected(Session::get('locale')== 'en')>English</option>
@@ -125,6 +125,7 @@
                 </div>
             </div>
         </div>
+
         <!-- End Topbar -->
         <!-- Start Header Middle -->
         <div class="header-middle">
@@ -181,9 +182,11 @@
                                     </a>
                                 </div>
 
+
                                     <!-- Shopping Item -->
                                     <x-cart-menu/>
                                     <!--/ End Shopping Item -->
+
 
                             </div>
                         </div>
@@ -191,6 +194,8 @@
                 </div>
             </div>
         </div>
+
+
         <!-- End Header Middle -->
         <!-- Start Header Bottom -->
         <div class="container">
@@ -311,9 +316,9 @@
     </header>
     <!-- End Header Area -->
 
+    {{-- {{dd(555)}} --}}
             {{$breadcrumb ?? ''}}
             {{$slot}}
-
     <!-- Start Footer Area -->
     <footer class="footer">
         <!-- Start Footer Top -->

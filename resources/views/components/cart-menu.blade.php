@@ -12,7 +12,7 @@
 
             @foreach ($items as $item)
                 <li>
-                    
+
                     <a href="javascript:void(0)" class="remove" title="Remove this item"><i
                             class="lni lni-close"></i></a>
                     <div class="cart-img-head">
@@ -24,7 +24,9 @@
                         <h4><a href="product-details.html">
                                 {{$item->product->name}}</a></h4>
                         <p class="quantity">{{$item->quantity}} - <span class="amount">
-                            {{App\Helpers\Currency::formate($item->product->price*$item->quantity)}}</span></p>
+                            {{-- {{App\Helpers\Currency::formate($item->product->price*$item->quantity)}} --}}
+                            {{$item->product->price*$item->quantity}}
+                        </span></p>
                     </div>
                 </li>
             @endforeach
@@ -32,7 +34,11 @@
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
-                <span class="total-amount">{{App\Helpers\Currency::formate($total)}}</span>
+                <span class="total-amount">
+                    {{-- {{App\Helpers\Currency::formate($total)}} --}}
+                    {{$total}}
+
+                </span>
             </div>
             <div class="button">
                 <a href="{{route('checkout')}}" class="btn animate">Checkout</a>

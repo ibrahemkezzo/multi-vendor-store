@@ -50,7 +50,7 @@
                     <div class="cart-single-list">
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-2 col-12">
-                                <a href="product-details.html"><img src="{{ $store->image_url }}"
+                                <a href="product-details.html"><img src="{{ $store->logo_image }}"
                                         alt="#"></a>
                             </div>
                             <div class="col-lg-3 col-md-4 col-12">
