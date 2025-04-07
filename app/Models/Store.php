@@ -8,22 +8,35 @@ use Illuminate\Notifications\Notifiable;
 
 class Store extends Model
 {
-    use Notifiable;
+    use Notifiable,HasFactory;
 
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
+    // const CREATED_AT = 'created_at';
+    // const UPDATED_AT = 'updated_at';
 
-    protected $connection = 'mysql';
-    protected $table = 'stores';
-    protected $primaryKey = 'id';
-    protected $keyType = 'int';
+    // protected $connection = 'mysql';
+    // protected $table = 'stores';
+    // protected $primaryKey = 'id';
+    // protected $keyType = 'int';
 
-    public $incrementing = true;
-    public $timestamps = true;
+    // public $incrementing = true;
+    // public $timestamps = true;
 
-    use HasFactory;
+
+    protected $fillable = [
+    'name',
+    'slug',
+    'department_id',
+    'description',
+    'logo_image',
+    'cover_image',
+    'status',
+    ];
 
     public function products(){
        return $this->hasMany(Product::class,'store_id','id');
+    }
+
+    public function department(){                                                                                                             
+        return $this->belongsTo(Department::class);
     }
 }

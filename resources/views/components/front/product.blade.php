@@ -26,7 +26,7 @@
             </ul>
             <div class="price">
                 {{-- <span>{{currency::formate($product->price)}}</span> --}}
-                <span>{{$product->price}}</span>
+                {{$product->price}}
 
                 @if ($product->compare_price)
                 {{-- <span class="discount-price">{{currency::formate($product->compare_price) }}</span> --}}

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\dashboard\AdminController;
 use App\Http\Controllers\dashboard\CategoriesController;
+use App\Http\Controllers\dashboard\DepartmentController;
 use App\Http\Controllers\dashboard\ImportProductController;
 use App\Http\Controllers\dashboard\OrdersController;
 use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\ProfileController;
 use App\Http\Controllers\dashboard\RolesController;
+use App\Http\Controllers\dashboard\StoreController;
 use App\Http\Controllers\dashboard\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Category;
@@ -32,6 +34,8 @@ function(){
     Route::post('/products/import',[ImportProductController::class,'store'])->name('product.import');
     Route::resource('/categories',CategoriesController::class);
     Route::resource('/products',ProductController::class);
+    Route::resource('/departments',DepartmentController::class);
+    Route::resource('/stores',StoreController::class);
     Route::resource('/roles',RolesController::class);
     Route::resource('/admins',AdminController::class);
     Route::resource('/users',UsersController::class);

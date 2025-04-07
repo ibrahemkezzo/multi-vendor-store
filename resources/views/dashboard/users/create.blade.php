@@ -4,30 +4,23 @@
 
 @section('breadcrumb')
 @parent
-<li class="breadcrumb-item active">Admin / Create</li>
+<li class="breadcrumb-item active">User / Create</li>
 @endsection
 
 @section('content')
 
 
 <div class="content container-fluid col-lg-8">
-    <form action="{{route('dashboard.admins.store')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('dashboard.users.store')}}" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-            <x-form.input type='email' name='email' label='email' />
-        </div>
-        <div class="form-group">
-            <x-form.input type='text' name='username' label='user name' />
-        </div>
-        <div class="form-group">
-            <x-form.input type='phone' name='phone_number' label='phone number' />
-        </div>
-        <div class="form-group">
-            <x-form.input type='password' name='password' label='password' />
-        </div>
+        @include('dashboard.users._form')
 
-        @include('dashboard.admins._form',['button_key'=>'save'])
-
+        <div class="form-group">
+            <x-form.input type='password' name='password' label='Password' />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary form-control"> create</button>
+        </div>
     </form>
 </div>
 

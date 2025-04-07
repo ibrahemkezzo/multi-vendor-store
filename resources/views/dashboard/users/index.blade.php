@@ -1,10 +1,10 @@
 @extends('layouts.dashboards')
 
-@section('title','Admins')
+@section('title','Users')
 
 @section('breadcrumb')
 @parent
-<li class="breadcrumb-item active">Admin</li>
+<li class="breadcrumb-item active">User</li>
 @endsection
 
 @section('content')
@@ -23,25 +23,25 @@
             <th>ID</th>
             <th>NAME ROLE</th>
             <th>CREATED_AT</th>
-            <th>@if(Auth::user()->can('admin.create',Admin::class))<a href="{{route('dashboard.admins.create')}}" class="btn btn-sm btn-outline-primary">create</a>@endif</th>
+            <th>@if(Auth::user()->can('user.create',User::class))<a href="{{route('dashboard.users.create')}}" class="btn btn-sm btn-outline-primary">create</a>@endif</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 
-        @forelse ($admins as $admin)
+        @forelse ($users as $user)
         <tr>
 
 
-            <td>{{$admin->id}}</td>
-            <td> <a href="{{route('dashboard.admins.show',$admin->id)}}">{{$admin->name}}</a> </td>
-            <td>{{$admin->created_at}}</td>
+            <td>{{$user->id}}</td>
+            <td> <a href="{{route('dashboard.users.show',$user->id)}}">{{$user->name}}</a> </td>
+            <td>{{$user->created_at}}</td>
             {{-- <td></td>
             <td></td> --}}
-            <td>@can('admin.delete')<a href="{{route('dashboard.admins.edit',$admin->id)}}"class='btn btn-sm btn-outline-info'>edit</a>@endcan</td>
+            <td>@can('user.delete')<a href="{{route('dashboard.users.edit',$user->id)}}"class='btn btn-sm btn-outline-info'>edit</a>@endcan</td>
             <td>
-                @can('admin.delete')
-               <form action="{{route('dashboard.admins.destroy',$admin->id)}}" method="POST">
+                @can('user.delete')
+               <form action="{{route('dashboard.users.destroy',$user->id)}}" method="POST">
                     @method('delete')
                     @csrf
                     <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
@@ -51,11 +51,11 @@
 
 
             @empty
-            <td colspan="5">there is not admin</td>
+            <td colspan="5">there is not user</td>
 
         </tr>
         @endforelse
     </tbody>
 </table>
-{{$admins->withQueryString()->links();}}
+{{$users->withQueryString()->links();}}
 @endsection

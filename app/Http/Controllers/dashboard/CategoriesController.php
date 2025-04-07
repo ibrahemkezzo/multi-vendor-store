@@ -85,7 +85,6 @@ class CategoriesController extends Controller
 
 
 
-
         $data = $request->except('image');
         $data['image'] =$this->uploaded_image($request,'uploads');
 
@@ -188,7 +187,7 @@ class CategoriesController extends Controller
         $category = Category::where('id',$id);
         // dd($category);
         $category->delete();
-        // if($category['image'])Storage::disk('public')->delete($category->image);
+        if($category['image'])Storage::disk('public')->delete($category->image);
         // Category::destroy($id);
         return redirect()->route('dashboard.categories.index')->with('info','category is deleted');
     }

@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         // $this->call(AdminSeeder::class);
 
-        Store::factory(20)->create();
-        \App\Models\User::factory(10)->create();
+        Store::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
         // Admin::factory(3)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        // Category::factory(10)->create();
+        Category::factory(10)->create();
         Product::factory(30)->create();
     }
 }

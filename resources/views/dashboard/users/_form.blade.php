@@ -10,26 +10,14 @@
 @endif
 
 <div class="form-group">
-    <x-form.input type='text' name='name' label='admin name' :value="$admin->name"/>
+    <x-form.input type='text' name='name' label='User Name' :value="$user->name"/>
 </div>
-
-
-<fieldset>
-    <legend>
-        {{__('Roles')}}
-    </legend>
-
-    @foreach ($roles as $role)
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}" >
-        <label class="form-check-label">
-            {{ $role->name }}
-        </label>
-    </div>
-    @endforeach
-</fieldset>
-
-
 <div class="form-group">
-    <button type="submit" class="btn btn-outline-primary form-control">{{$button_key??'update'}}</button>
+    <x-form.input type='text' name='phone_number' label='Phone Number' :value="$user->phone_number"/>
 </div>
+<div class="form-group">
+    <x-form.input type='email' name='email' label='Email' :value="$user->email"/>
+</div>
+
+
+

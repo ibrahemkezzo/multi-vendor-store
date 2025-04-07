@@ -50,9 +50,9 @@
                                 <h2 class="title">{{ $product->name }}</h2>
                                 <p class="category"><i class="lni lni-tag"></i>Drones<a href="javascript:void(0)">
                                         {{ $product->category->name }}</a></p>
-                               <h3 class="price">{{$product->price}} {{-- {{ currency::formate($product->price) }} --}}
+                               <h3 class="price">{{$product->price}} {{-- currency::formate($product->price) --}}
                                     @if ($product->compare_price)
-                                        <span> {{$product->compare_price}}{{--{{ currency::formate($product->compare_price) }} --}}
+                                        <span> {{$product->compare_price}}{{-- currency::formate($product->compare_price) --}}
                                         </span>
                                     @endif
                                 </h3>
@@ -61,7 +61,7 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-12">
+                                        {{-- <div class="col-lg-4 col-md-4 col-12">
                                             <div class="form-group color-option">
                                                 <label class="title-label" for="size">Choose color</label>
                                                 <div class="single-checkbox checkbox-style-1">
@@ -81,8 +81,8 @@
                                                     <label for="checkbox-4"><span></span></label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12">
+                                        </div> --}}
+                                        {{-- <div class="col-lg-4 col-md-4 col-12">
                                             <div class="form-group">
                                                 <label for="color">Battery capacity</label>
                                                 <select class="form-control" id="color">
@@ -91,7 +91,8 @@
                                                     <option>8000 mAh</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
+
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <div class="form-group quantity">
                                                 <label for="color">Quantity</label>
@@ -104,27 +105,29 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-4 col-12 mt-4">
+                                            <div class="button cart-button form-group">
+                                                <button class="btn" type="submit" style="width: 100%;">Add to
+                                                    Cart</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="bottom-content">
                                         <div class="row align-items-end">
-                                            <div class="col-lg-4 col-md-4 col-12">
-                                                <div class="button cart-button">
-                                                    <button class="btn" type="submit" style="width: 100%;">Add to
-                                                        Cart</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-4 col-12">
+
+                                            {{-- <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="wish-button">
                                                     <button class="btn"><i class="lni lni-reload"></i>
                                                         Compare</button>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-4 col-12">
+                                            </div> --}}
+                                            {{-- <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="wish-button">
                                                     <button class="btn"><i class="lni lni-heart"></i> To
                                                         Wishlist</button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </form>
@@ -132,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-details-info">
+                {{-- <div class="product-details-info">
                     <div class="single-block">
                         <div class="row">
                             <div class="col-lg-6 col-12">
@@ -175,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </section>
         <!-- End Item Details -->

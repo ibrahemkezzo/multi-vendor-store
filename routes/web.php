@@ -1,17 +1,20 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\dashboard\StoreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\front\auth\TwoFactorController;
 use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\front\CurrencyConverterController;
+use App\Http\Controllers\front\DepartmentControeller;
 use App\Http\Controllers\front\HomeController;
 use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\ShopStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Models\Department;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,19 +67,31 @@ Route::post('/checkout', [CheckoutController::class, 'store']);
 Route::post('/currency', [CurrencyConverterController::class, 'store'])
     ->name('currency.store');
 
-Route::get('/shop-grid',[ProductController::class,'index'])
-->name('shop-grid');
+Route::get('/all-products',[ProductController::class,'index'])
+->name('all-products');
+Route::get('/category/{id}',[ProductController::class,'filterCategory'])
+->name('filter.category');
+
+
 
 Route::get('shop/stores/index',[ShopStoreController::class,'index'])
 ->name('shop-stores');
 Route::get('shop/stores/show/{store:slug}',[ShopStoreController::class,'show'])
 ->name('shop.stores.show');
 
+Route::get('/department/filter_store/{id}',[DepartmentControeller::class,'filterStore'])->name('front.department.filter-store');
+
+Route::get('/department',[DepartmentControeller::class,'index'])->name('front.department.index');
+
+Route::get('/department/{id}',[DepartmentControeller::class,'show'])->name('front.department.show');
+
 Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('categories',[])->name('categories.index');
+Route::get('contact-us',[])->name('contact-us');
 
 require __DIR__ . '/dashboard.php';
 // require __DIR__.'/auth.php';

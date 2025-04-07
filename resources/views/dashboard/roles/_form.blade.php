@@ -18,10 +18,11 @@
     <legend>
         {{__('Abilities')}}
     </legend>
+    {{-- @dd(config('abilities')) --}}
     @foreach (config('abilities') as $ability_code => $ability_name)
         <div class="row">
 
-            <div class="col-md-2">{{$ability_name}}</div>
+            <div class="col-md-4">{{$ability_name}}</div>
             <?php
                 if($abilities != ''){
                     $checked = $abilities[$ability_code];

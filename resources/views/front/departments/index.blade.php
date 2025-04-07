@@ -23,7 +23,7 @@
     <section class="product-grids section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-12">
+                {{-- <div class="col-lg-3 col-12">
                     <!-- Start Product Sidebar -->
                     <div class="product-sidebar">
                         <!-- Start Single Widget -->
@@ -36,13 +36,13 @@
                         </div>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        <div class="single-widget">
+                       <div class="single-widget">
                             <h3>All Departments</h3>
                             <ul class="list">
                                 @foreach ($departments as $department)
 
                                 <li>
-                                    <a href="{{route('front.department.filter-store',$department->id)}}">{{$department->name}}</a>{{--<span>(1138)</span>--}}
+                                    <a href="{{route('front.department.show',$department->id)}}">{{$department->name}}</a><span>(1138)</span>
                                 </li>
                                 @endforeach
 
@@ -50,17 +50,17 @@
                         </div>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {{-- <div class="single-widget range">
+                       <div class="single-widget range">
                             <h3>Price Range</h3>
                             <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10" onchange="rangePrimary.value=value">
                             <div class="range-inner">
                                 <label>$</label>
                                 <input type="text" id="rangePrimary" placeholder="100">
                             </div>
-                        </div> --}}
+                        </div>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {{-- <div class="single-widget condition">
+                        <div class="single-widget condition">
                             <h3>Filter by Price</h3>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
@@ -86,10 +86,10 @@
                                     $1,000 - $5,000 (213)
                                 </label>
                             </div>
-                        </div> --}}
+                        </div>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {{-- <div class="single-widget condition">
+                         <div class="single-widget condition">
                             <h3>Filter by Brand</h3>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
@@ -139,12 +139,12 @@
                                     Panasonic (74)
                                 </label>
                             </div>
-                        </div> --}}
+                        </div>
                         <!-- End Single Widget -->
                     </div>
                     <!-- End Product Sidebar -->
-                </div>
-                <div class="col-lg-9 col-12">
+                </div> --}}
+                <div class="col-lg-12 col-12">
                     <div class="product-grids-head">
                         <div class="product-grid-topbar">
                             <div class="row align-items-center">
@@ -175,19 +175,18 @@
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
                                 <div class="row">
-                                    @foreach ($stores as $store)
+                                    @foreach ($departments as $department)
 
                                     <div class="col-lg-4 col-md-6 col-12">
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="product-image">
-                                                <img src="{{$store->cover_image}}" alt="#">
+                                                <img src="{{$department->cover_image}}" alt="#">
 
                                             </div>
                                             <div class="product-info">
-                                                <span class="category">{{$store->department->name}}</span>
                                                 <h4 class="title">
-                                                    <a href="product-grids.html">{{$store->name}}</a>
+                                                    <a href="{{route('front.department.show',$department->id)}}">{{$department->name}}</a>
                                                 </h4>
                                                 <ul class="review">
                                                     <li><i class="lni lni-star-filled"></i></li>
@@ -202,7 +201,6 @@
                                         </div>
                                         <!-- End Single Product -->
                                     </div>
-                                    
                                     @endforeach
 
 
@@ -226,22 +224,22 @@
                             <div class="tab-pane show active fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                                 <div class="row">
 
-                                    @foreach ($stores as $store)
+                                    @foreach ($departments as $department)
 
-                                    <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="col-lg-6 col-md-12 col-12">
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-4 col-md-4 col-12">
                                                     <div class="product-image">
-                                                        <img src="{{$store->logo_image}}" alt="#">
+                                                        <img src="{{$department->logo_image}}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-12">
                                                     <div class="product-info">
-                                                        <span class="category">{{$store->department->name}}</span>
+                                                        
                                                         <h4 class="title">
-                                                            <a href="{{route('shop.stores.show',$store->slug)}}">{{$store->name}}</a>
+                                                            <a href="{{route('front.department.show',$department->id)}}">{{$department->name}}</a>
                                                         </h4>
                                                         <ul class="review">
                                                             <li><i class="lni lni-star-filled"></i></li>
@@ -258,11 +256,10 @@
                                         </div>
                                         <!-- End Single Product -->
                                     </div>
-
                                     @endforeach
                                 </div>
 
-                            {{$stores->withQueryString()->links();}}
+                            {{-- {{$departments->withQueryString()->links();}} --}}
                                 {{-- <div class="row">
                                     <div class="col-12">
                                         <!-- Pagination -->

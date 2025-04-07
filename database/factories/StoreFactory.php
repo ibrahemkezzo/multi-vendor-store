@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Provider\en_US\Company;
@@ -21,9 +22,11 @@ class StoreFactory extends Factory
         return [
             'name'=>$name,
             'slug'=>Str::slug($name),
+            'department_id'=>Department::inRandomOrder()->first()->id,
             'description'=>fake()->sentence(10),
             'logo_image'=>fake()->imageUrl(300,300),
             'cover_image'=>fake()->imageUrl(600,800),
+            'status'=>'active'
 
 
         ];

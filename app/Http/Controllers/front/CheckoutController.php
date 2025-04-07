@@ -51,7 +51,7 @@ class  CheckoutController extends Controller
 
                 DB::commit();
                 // event('order.created',$order);
-                // event(new OrderCreate($order));
+                event(new OrderCreate($order));
                 }
             }
         }catch(Throwable $e){

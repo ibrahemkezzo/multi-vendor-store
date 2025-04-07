@@ -8,6 +8,22 @@ return[
         'ability'=>'dashboard'
     ],
     [
+        'icon'=>'nav-icon fas fa-th',
+        'route'=>'dashboard.departments.index',
+        'title'=>'departments',
+        'active'=>'dashboard.departments.*',
+        'ability'=>'department.view'
+
+    ],
+    [
+        'icon'=>'fas fa-shopping-cart',
+        'route'=>'dashboard.stores.index',
+        'title'=>'stores',
+        'active'=>'dashboard.stores.*',
+        'ability'=>'store.view'
+
+    ],
+    [
         'icon'=>'fas fa-tags nav-icon',
         'route'=>'dashboard.categories.index',
         'title'=>'categories',
