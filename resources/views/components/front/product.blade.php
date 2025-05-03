@@ -2,9 +2,9 @@
 
 
     <!-- Start Single Product -->
-    <div class="single-product">
+    <div class="single-product" style="height: 37em;">
         <div class="product-image">
-            <img src="{{$product->image}}"  height="400" alt="#">
+            <img src="{{asset('storage/'.$product->image)}}"  height="330em" alt="#">
             <span class="sale-tag">{{$product->sale_percent}}%</span>
             {{-- <span class="new-tag">New</span> --}}
             <div class="button">
@@ -25,12 +25,12 @@
                 <li><span>4.0 Review(s)</span></li>
             </ul>
             <div class="price">
-                {{-- <span>{{currency::formate($product->price)}}</span> --}}
-                {{$product->price}}
+                <span>{{currency::formate($product->price)}}</span>
+                {{-- {{$product->price}} --}}
 
                 @if ($product->compare_price)
-                {{-- <span class="discount-price">{{currency::formate($product->compare_price) }}</span> --}}
-                <span class="discount-price">{{$product->compare_price }}</span>
+                <span class="discount-price">{{currency::formate($product->compare_price) }}</span>
+                {{-- <span  class="discount-price">{{$product->compare_price }}</span> --}}
                 @endif
             </div>
         </div>

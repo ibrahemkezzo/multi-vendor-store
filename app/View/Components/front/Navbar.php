@@ -3,19 +3,20 @@
 namespace App\View\Components\front;
 
 use App\Models\Category;
+use App\Models\Department;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Navbar extends Component
 {
-    public $categories;
+    public $departments;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->categories = Category::all()->load('childrens');
+        $this->departments = Department::all()->load('categories');
     // dd($this->categories);
     }
 

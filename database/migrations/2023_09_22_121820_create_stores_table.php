@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');//varchar(255)
             $table->string('slug')->unique();
             $table->foreignId('department_id')->nullable()->constrained('departments')->cascadeOnDelete();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('logo_image')->nullable();
             $table->string('cover_image')->nullable();
             $table->enum('status',['active','inactive'])->default('active');

@@ -38,9 +38,9 @@
             <th>ID</th>
             <th>IMAGE</th>
             <th>NAME</th>
-            <th>PARENT_ID</th>
+            <th>DEPARTMENT</th>
             <th>PRODUCTS_COUNT</th>
-            <th>status</th>
+            <th>STATUS</th>
             <th>CREATED_AT</th>
             {{-- @dd(Auth::user()->can('create',Category::class)) --}}
             <th>@if(Auth::user()->can('create',Category::class))<a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary">create</a>@endif</th>
@@ -56,7 +56,7 @@
             <td>{{$category->id}}</td>
             <td><img src="{{asset('storage/'.$category->image)}}"alt="" width="80px" ></td>
             <td> <a href="{{route('dashboard.categories.show',$category->id)}}">{{$category->name}}</a> </td>
-            <td>{{$category->parent->name}}</td>{{--{{$category->parent?$category->parent->name:'-'}}--}}
+            <td>{{$category->department->name}}</td>{{--{{$category->parent?$category->parent->name:'-'}}--}}
             <td>{{$category->product_count}}</td>
             <td>{{$category->status}}</td>
             <td>{{$category->created_at}}</td>

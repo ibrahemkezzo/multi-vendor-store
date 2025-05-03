@@ -18,12 +18,13 @@
         @method('patch')
         <div class="form-row">
             <div class="col-md-6">
-                <x-form.input type='text' name='name' label='product name' :value="$product->name"/>
+                <x-form.input type='text' name='name' label='product name' :value="$product->name" />
+                    {{-- <input type='' /> --}}
             </div>
             <div class="col-md-6">
                 <label for="category_id" >Category</label><br>
                 <select  name="category_id" id="category_id" class="form-control">
-                    <option selected value=" ">primary category</option>
+
                     @foreach (App\Models\Category::all() as $category)
                     <option value="{{$category->id}}" @selected(old('category_id',$product->category_id )== $category->id)>
                     {{$category->name}}</option>
@@ -35,25 +36,28 @@
             </div>
         </div>
         <div class="    ">
-                 <x-form.input type='text' name='description' label='discripton' {{--:value="$product->discripton"--}}/>
+                 <x-form.input type='text' name='description' label='discripton' :value="$product->description"/>
         </div>
         <div class="form-group">
             <x-form.input type='file' label="image" name='image' />
             @if ($product->image)
-            <img src="{{asset('storage/'.$product->image)}}" alt="">
+            <img src="{{asset('storage/'.$product->image)}}" alt="" height="200px" width="250px" >
             @endif
         </div>
         <div class="form-row">
-            <div class="col-md-6">
-                <x-form.input type='text' name='price' label='price' :value="$product->price"/>
+            <div class="col-md-4">
+                <x-form.input type='number' name='price' label='price' :value="$product->price"/>
             </div>
-            <div class="col-md-6">
-                <x-form.input type='text' name='compare_price' label='compare_price' :value="$product->compare_price"/>
+            <div class="col-md-4">
+                <x-form.input type='number' name='compare_price' label='compare_price' :value="$product->compare_price" />
+            </div>
+            <div class="col-md-4">
+                <x-form.input type='number' name='quantity' label='quantity' :value="$product->quantity" />
             </div>
 
         </div>
         <div class="form-group">
-            <x-form.input type="text" name="tags" label="tags" :value="$tags"/>
+            <x-form.input type="text" name="tags" label="tags" :value="$tags" />
         </div>
         <div class="form-group">
             <x-form.checked label='status' name='status' :options="['active'=>'Active',

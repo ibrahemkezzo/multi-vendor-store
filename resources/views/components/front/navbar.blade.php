@@ -8,22 +8,22 @@
                         <span class="cat-button"><i class="lni lni-menu"></i>{{ __('All Categories') }}</span>
                         <ul class="sub-category">
 
-                            @foreach ($categories as $category)
-                                @if ($category->parent_id == null)
-                                    <li><a href="{{route('filter.category',$category->id)}}">{{ $category->name }}
-                                            @if (count($category->childrens) > 0)
+                            @foreach ($departments as $department)
+
+                                    <li><a href="{{route('front.department.show',$department->id)}}">{{ $department->name }}
+                                            @if (count($department->categories) > 0)
                                                 <i class="lni lni-chevron-right"></i>
                                         </a>
                                         <ul class="inner-sub-category">
-                                            @foreach ($category->childrens as $children)
-                                                <li><a href="#">{{ $children->name }}</a></li>
+                                            @foreach ($department->categories as $category)
+                                                <li><a href="{{route('filter.category',$category->id)}}">{{ $category->name }}</a></li>
                                             @endforeach
                                         </ul>
                                     @else
                                         </a>
                                 @endif
                                 </li>
-                            @endif
+
                             @endforeach
                             {{-- <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
                                 <ul class="inner-sub-category">
@@ -92,7 +92,7 @@
                                         </ul>
 
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a href="contact.html" aria-label="Toggle navigation">{{ __('Contact Us') }}</a>
                                 </li>

@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Cart</h1>
+                            <h1 class="page-title">{{$department->name}}</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
@@ -43,6 +43,20 @@
 
                                 <li>
                                     <a href="{{route('front.department.show',$department->id)}}">{{$department->name}}</a><span>(1138)</span>
+                                </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                        <!-- Start Single Widget -->
+                       <div class="single-widget">
+                            <h3>All Categories</h3>
+                            <ul class="list">
+                                @foreach ($categories as $category)
+
+                                <li>
+                                    <a href="{{route('filter.category',$category->id)}}">{{$category->name}}</a><span>(1138)</span>
                                 </li>
                                 @endforeach
 
@@ -165,21 +179,21 @@
                                 <div class="col-lg-5 col-md-4 col-12">
                                     <nav>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link " id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#nav-grid" type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i class="lni lni-grid-alt"></i></button>
-                                            <button class="nav-link active" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i class="lni lni-list"></i></button>
+                                            <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#nav-grid" type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i class="lni lni-grid-alt"></i></button>
+                                            <button class="nav-link " id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i class="lni lni-list"></i></button>
                                         </div>
                                     </nav>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
+                            <div class="tab-pane show active fade" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
                                 <div class="row">
                                     @foreach ($products as $product)
-                                    <div class="col-lg-4 col-md-6 col-12">
-                                        <div class="single-product">
+                                    <div class="col-lg-4 col-md-6 col-12" >
+                                        <div class="single-product" style="height: 30em;">
                                             <div class="product-image">
-                                                <img src="{{$product->image}}" alt="#">
+                                                <img src="{{asset('storage/'.$product->image)}}" alt="#">
                                                 <span class="new-tag">New</span>
                                                 <div class="button">
                                                     <a href="{{route('product.show',$product->slug)}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -199,7 +213,7 @@
                                                     <li><span>5.0 Review(s)</span></li>
                                                 </ul>
                                                 <div class="price">
-                                                    <span>{{$product->price}}</span>
+                                                    <span>{{currency::formate($product->price)}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,16 +238,16 @@
                                     </div>
                                 </div> --}}
                             </div>
-                            <div class="tab-pane show active fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
+                            <div class="tab-pane fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                                 <div class="row">
 
                                     @foreach ($products as $product)
-                                    <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="col-lg-12 col-md-12 col-12" >
                                         <div class="single-product">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-4 col-md-4 col-12">
                                                     <div class="product-image">
-                                                        <img src="{{$product->image}}" alt="#">
+                                                        <img src="{{asset('storage/'.$product->image)}}" alt="#">
                                                         <span class="sale-tag">-25%</span>
                                                         <div class="button">
                                                             <a href="{{route('product.show',$product->slug)}}" class="btn"><i class="lni lni-cart"></i> Add to
@@ -256,7 +270,7 @@
                                                             <li><span>5.0 Review(s)</span></li>
                                                         </ul>
                                                         <div class="price">
-                                                            <span>{{$product->price}}</span>
+                                                            <span>{{currency::formate($product->price)}}</span>
                                                             <span class="discount-price">{{$product->compare_price}}</span>
                                                         </div>
                                                     </div>

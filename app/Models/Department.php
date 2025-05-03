@@ -20,4 +20,9 @@ class Department extends Model
 {
     return $this->hasManyThrough(Product::class, Store::class);
 }
+public function categories()
+{
+    return $this->hasMany(Category::class);
+}
+
 }

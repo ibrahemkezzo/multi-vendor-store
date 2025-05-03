@@ -33,7 +33,7 @@
                             <div class="product-images">
                                 <main id="gallery">
                                     <div class="main-img">
-                                        <img src="{{ $product->image}}" id="current" alt="#">
+                                        <img src="{{asset('storage/'.$product->image)}}" id="current" alt="#">
                                     </div>
                                     <div class="images">
                                         {{-- <img src="{{$product->image_url}}" class="img" alt="#"> --}}
@@ -50,9 +50,9 @@
                                 <h2 class="title">{{ $product->name }}</h2>
                                 <p class="category"><i class="lni lni-tag"></i>Drones<a href="javascript:void(0)">
                                         {{ $product->category->name }}</a></p>
-                               <h3 class="price">{{$product->price}} {{-- currency::formate($product->price) --}}
+                               <h3 class="price">{{currency::formate($product->price)}}
                                     @if ($product->compare_price)
-                                        <span> {{$product->compare_price}}{{-- currency::formate($product->compare_price) --}}
+                                        <span> {{currency::formate($product->compare_price)}}
                                         </span>
                                     @endif
                                 </h3>

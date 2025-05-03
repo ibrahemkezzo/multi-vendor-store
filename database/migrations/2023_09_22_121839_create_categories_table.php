@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')
-                  ->nullable()
-                  ->constrained('categories','id')
-                  ->nullOnDelete();
             $table->string('name');
+            $table->foreignId('department_id')
+                  ->nullable()
+                  ->constrained('departments','id')
+                  ->nullOnDelete();
             $table->string('slug')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->enum('status',['active','archived']);
             $table->timestamps();

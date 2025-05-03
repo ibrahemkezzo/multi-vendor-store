@@ -13,7 +13,7 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     //protected $guarded=[''];
-    protected $fillable=['name','parent_id','slug','description','image','status'];
+    protected $fillable=['name','department_id','slug','description','image','status'];
 
 
 
@@ -49,17 +49,15 @@ class Category extends Model
                         // }
                         new Filter(['laravel','php','html'])
         ],
-            'parent_id'=>['nullable','integer','exists:categories,id'],
+            'department_id'=>['nullable','integer','exists:departments,id'],
             'image'=>['image','max:10000'],
             'status'=>['required','in:active,archived'],
         ];
     }
-    public function parent(){
-        return $this->belongsTo(Category::class,'parent_id','id')->withDefault(['name'=>'--']);
+    public function department(){
+        return $this->belongsTo(Department::class);
     }
-    public function childrens(){
-        return $this->hasMany(Category::class,'parent_id','id');
-    }
+
     public function products(){
       return $this->hasMany(Product::class,'category_id','id');
     }

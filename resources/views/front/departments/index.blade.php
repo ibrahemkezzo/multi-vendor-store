@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Cart</h1>
+                            <h1 class="page-title">Stores</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
@@ -177,7 +177,7 @@
                                 <div class="row">
                                     @foreach ($departments as $department)
 
-                                    <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="col-lg-4 col-md-6 col-12" style="height: 35em;">
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="product-image">
@@ -237,7 +237,7 @@
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-12">
                                                     <div class="product-info">
-                                                        
+
                                                         <h4 class="title">
                                                             <a href="{{route('front.department.show',$department->id)}}">{{$department->name}}</a>
                                                         </h4>

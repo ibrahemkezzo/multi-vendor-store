@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Department;
 use App\Models\Product;
 use App\Models\Store;
@@ -20,11 +21,11 @@ class DepartmentControeller extends Controller
         $departments = Department::all();
         $department = Department::findOrFail($id);
         $storeIds = Store::where('department_id',$id)->pluck('id');
-
+        $categories = Category::all();
         $products = Product::whereIn('store_id', $storeIds)->get();
         // dd($products);
 
-        return view('front.departments.show2',compact('departments','department','products'));
+        return view('front.departments.show2',compact('departments','department','products','categories'));
     }
     public function filterStore(int $id)
     {

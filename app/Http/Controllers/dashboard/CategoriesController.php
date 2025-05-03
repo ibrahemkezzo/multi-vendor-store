@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriesRequest;
 use App\Models\Category;
+use App\Models\Department;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ class CategoriesController extends Controller
         // if($user->store_id){
         //     $query->where('store_id','=',$user->store_id);
         // }
-        $categories= Category::with(['parent'])
+        $categories= Category::with(['department'])
         // leftJoin('categories as parents','parents.id','=','categories.parent_id')
         // ->select(['categories.*','parents.name as parent_id'])
         // ->select('categories.*')
@@ -69,10 +70,10 @@ class CategoriesController extends Controller
     public function create()
     {
         // Gate::authorize('category.create');
-        $parents=Category::all();
+        $departments=Department::all();
 
         $category=new Category();
-        return view('dashboard.categories.create',compact('category','parents'));
+        return view('dashboard.categories.create',compact('category','departments'));
     }
 
     /**
@@ -145,13 +146,9 @@ class CategoriesController extends Controller
         }catch(Exception $e){
             return redirect()->route('dashboard.categories.index')->with('info','the category not found');
         }
-        $parents = Category::where('id','<>',$id)
-        ->where(function ($query)use($id) {
-            $query->whereNull('parent_id')->Orwhere('parent_id','<>',$id);
+        $departments = Department::all();
 
-        })->get();
-
-        return view('dashboard.categories.edit',compact('category','parents'));
+        return view('dashboard.categories.edit',compact('category','departments'));
     }
 
     /**

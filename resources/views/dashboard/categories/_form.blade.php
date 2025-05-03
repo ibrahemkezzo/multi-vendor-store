@@ -13,17 +13,16 @@
     <x-form.input type='text' name='name' label='category name' :value="$category->name"/>
 </div>
 <div class="form-group">
-    <label for="parent_id" >parent_id</label><br>
-    <select  name="parent_id" id="parent_id" class="form-control">
-        <option selected value=" ">primary category</option>
-        @foreach ($parents as $parent)
-        <option value="{{$parent->id}}" @selected(old('parent_id',$category->parent_id )== $parent->id)>{{$parent->name}}</option>
+    <label for="department_id" >department</label><br>
+    <select  name="department_id" id="department_id" class="form-control">
+        @foreach ($departments as $department)
+        <option value="{{$department->id}}" @selected(old('department_id',$category->department_id )== $department->id)>{{$department->name}}</option>
         @endforeach
     </select>
-    @if ($errors->has('parent_id'))
+    @if ($errors->has('department_id'))
 <div class="text-danger">{{$errors->first()}}</div>
     @endif
-    {{-- <x-form.selected label='parent_id' name='parent_id' :value="$category->id" first_op='primary category' :parents="$parents" /> --}}
+    {{-- <x-form.selected label='department_id' name='department_id' :value="$category->id" first_op='primary category' :departments="$departments" /> --}}
 </div>
 <div class="form-group">
     <label for="description" >description</label>

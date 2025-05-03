@@ -28,7 +28,7 @@ class CategoriesRequest extends FormRequest
         return [
             'name'=>['required','string','max:255','min:3',new Filter(['laravel','html','oop','css']),Rule::unique('categories','name')->ignore($id)],
 
-            'parent_id'=>['nullable','integer',Rule::exists('categories','id')],
+            'department_id'=>['nullable','integer',Rule::exists('departments','id')],
             'image'=>['image','max:5242880','dimensions:min_width=100,min_height=100'],
             'status'=>'in:active,archived',
         ];

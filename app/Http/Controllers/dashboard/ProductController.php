@@ -64,9 +64,10 @@ class ProductController extends Controller
             'store_id'=>['required','exists:stores,id'],
             'category_id'=>['required','exists:categories,id'],
             'name'=>['required','string','max:255'],
-            'description'=>['string','max:255'],
+            'description'=>['string'],
             'image'=>['image','max:10000'],
             'price'=>['required'],
+            'quantity'=>['required','integer'],
             'status'=>['required','in:active,archive,draf'],
             'tags'=>['string']
         ]);
@@ -112,8 +113,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // dd($request);
         // $this->authorize('update',$product);
-        $product->save($request->except('tags'));
+        $old_image=$product->image;
+        $data = $request->except(['image','tags']);
+        $patt=$this->upload_image($request,'uploads');
+        if($patt)$data['image']=$patt;
+        $product->update($data);
         $tags = explode(',', $request->post('tags'));
         $saved_tags = Tag::all();
         $tag_ids=[];
@@ -130,7 +136,7 @@ class ProductController extends Controller
             $tag_ids[]=$tag->id;
         }
         $product->tags()->sync($tag_ids);
-
+        // dd($product);
         return redirect()->route('dashboard.products.index')->with('success','update has done');
     }
 

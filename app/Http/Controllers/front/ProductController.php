@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,12 @@ class ProductController extends Controller
     }
 
     public function filterCategory(int $id){
-        $category = Category::findOrFail($id)->load('childrens');
-        $categoryIds = $category->childrens ? $category->childrens->pluck('id')->toArray() : [] ;
-        $categoryIds[] = $category->id;
-        $products = Product::whereIn('category_id', $categoryIds)->get();
-        return view('front.products.index', compact('products'));
+        $category = Category::findOrFail($id);
+        $categories = Category::all();
+        $products = Product::where('category_id', $id)->get();
+        $departments = Department::all();
+        $department = $category->department;
+        // dd($department);
+        return view('front.departments.show2', compact('departments','department','products','categories'));
     }
 }

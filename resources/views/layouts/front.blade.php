@@ -50,8 +50,8 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-left">
                             <ul class="menu-top-link">
-                                <li>
-                                    {{-- <div class="select-position">
+                                {{-- <li>
+                                    <div class="select-position">
                                         <form action="{{route('currency.store')}}" method="POST">
                                             @csrf
                                             <select name="currency_code" id="select4" onchange="this.form.submit()">
@@ -63,8 +63,8 @@
                                                 <option value="QAR" @selected('QAR' == Session::get('currency_cod'))>৳ QAR</option>
                                             </select>
                                         </form>
-                                    </div> --}}
-                                </li>
+                                    </div>
+                                </li> --}}
                                 <li>
                                     <div class="select-position">
                                         <form action="#" method="get" >
