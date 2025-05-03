@@ -17,7 +17,7 @@ class Navbar extends Component
     public function __construct()
     {
         $this->departments = Department::all()->load('categories');
-    // dd($this->categories);
+    // dd($this->departments);
     }
 
     /**

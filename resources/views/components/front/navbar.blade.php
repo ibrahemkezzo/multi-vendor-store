@@ -7,6 +7,7 @@
                     <div class="mega-category-menu">
                         <span class="cat-button"><i class="lni lni-menu"></i>{{ __('All Categories') }}</span>
                         <ul class="sub-category">
+                            @dump()
 
                             @foreach ($departments as $department)
 

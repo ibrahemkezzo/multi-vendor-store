@@ -31,7 +31,7 @@ function(){
     Route::delete('/categories/{category}/force-delete',[CategoriesController::class,'force_delete'])
     ->name('categories.force_delete');
     Route::get('/products/import',[ImportProductController::class,'create'])->name('product.import');
-    Route::post('/products/import',[ImportProductController::class,'store'])->name('product.import');
+    Route::post('/products/import',[ImportProductController::class,'store']);
     Route::resource('/categories',CategoriesController::class);
     Route::resource('/products',ProductController::class);
     Route::resource('/departments',DepartmentController::class);
