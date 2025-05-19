@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
-class nav extends Component
+class Nav extends Component
 {
     public $items;
     // public $active;
