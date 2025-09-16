@@ -12,7 +12,8 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="{{route('front.home')}}"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="{{route('cart.index')}}">Shop</a></li>
+                        <li><a href="{{route('product.index')}}">Shop</a></li>
+                        <li><a href="{{route('cart.index')}}">cart</a></li>
                         <li>checkout</li>
                     </ul>
                 </div>
@@ -203,13 +204,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
-                                                <label>Country</label>
                                                 <div class="form-input form">
                                                     <x-form.selected name="addr[shipping][country]" label="Country" :options="$countries"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <div class="checkout-payment-option">
                                                 <h6 class="heading-6 font-weight-400 payment-title">Select Delivery
                                                     Option</h6>
@@ -248,17 +248,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <div class="steps-form-btn button">
                                                 <a  class="btn collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">previous</a>
-                                                <button type="submit" href="javascript:void(0)" class="btn btn-alt">Save &amp; Continue</button>
+                                                <button type="submit" class="btn btn-alt">Save &amp; Continue</button>
                                             </div>
                                         </div>
                                     </div>
                                 </section>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapsefive" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
                                     <div class="row">
@@ -272,14 +272,14 @@
                                         </div>
                                     </div>
                                 </section>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </form>
             </div>
             <div class="col-lg-4">
                 <div class="checkout-sidebar">
-                    <div class="checkout-sidebar-coupon">
+                    {{-- <div class="checkout-sidebar-coupon">
                         <p>Appy Coupon to get discount!</p>
                         <form action="#">
                             <div class="single-form form-default">
@@ -291,7 +291,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="checkout-sidebar-price-table mt-30">
                         <h5 class="title">Pricing Table</h5>
 
@@ -300,14 +300,14 @@
                                 <p class="value">Subotal Price:</p>
                                 <p class="price">{{App\Helpers\Currency::formate($cart->total())}}</p>
                             </div>
-                            <div class="total-price shipping">
+                            {{-- <div class="total-price shipping">
                                 <p class="value">Subotal Price:</p>
                                 <p class="price">$10.50</p>
                             </div>
                             <div class="total-price discount">
                                 <p class="value">Subotal Price:</p>
                                 <p class="price">$10.00</p>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="total-payable">

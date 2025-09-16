@@ -22,7 +22,7 @@ class AdminFactory extends Factory
             'email'=>$this->faker->unique()->safeEmail,
             'username'=>$this->faker->unique()->userName,
             'phone_number'=>$this->faker->unique()->phoneNumber,
-            'password'=>Hash::make('12345678'),
+            'password'=>Hash::make('password'),
             'super_admin'=>$this->faker->boolean,
 
         ];

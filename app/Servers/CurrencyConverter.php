@@ -23,7 +23,7 @@ class CurrencyConverter {
         ]);
         // Http::baseUrl($this->baseurl)->withHeader(['authorization'=>'bearer'.$this->apikey,]);
         $result=$response->json();
-        // dd($result[$q]['val']*$amount);
+        dd($result);
         return $result[$q]['val']*$amount;
 
     }

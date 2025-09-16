@@ -62,4 +62,10 @@ class Role extends Model
     public function abilities(){
         return $this->hasMany(RoleAbility::class,'role_id','id');
     }
+
+        // علاقة polymorphic مع admins أو أي موديل تاني
+    public function admins()
+    {
+        return $this->morphedByMany(Admin::class, 'authorizable', 'role_user');
+    }
 }

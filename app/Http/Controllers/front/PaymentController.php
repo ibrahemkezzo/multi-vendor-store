@@ -13,7 +13,7 @@ class PaymentController extends Controller
 {
     public function create(Order $order)
     {
-
+        // dd($order);
         return view('front.payment.create', compact('order'));
     }
 

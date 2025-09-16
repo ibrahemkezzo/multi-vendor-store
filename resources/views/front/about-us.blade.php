@@ -26,7 +26,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="content-left">
-                        <img src="assets/images/about/about-img.jpg" alt="#">
+                        <img src="{{asset('assets/images/about/about-img.jpg')}}" alt="#">
                         <a href="https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM" class="glightbox video"><i class="lni lni-play"></i></a>
                     </div>
                 </div>

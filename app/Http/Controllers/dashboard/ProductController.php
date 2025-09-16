@@ -26,19 +26,21 @@ class ProductController extends Controller
     {
 
         // dd(Auth::user()->can('create',Product::class));
-    //     $request= request();
-    //     $user=Auth::user();
+        $user = Auth::user();
 
-    //     $query=Product::query();
-    //    if($user->store_id){
-    //     $query->where('store_id','=',$user->store_id);
-    //    }
+        $query = Product::with(['category', 'store']); // نبدأ بالكويري مع العلاقات
 
-        // $this->authorize('view-any',Product::class);
-        // dd(Auth::user()->can('create',Product::class));
-        $products=Product::with(['category','store'])->paginate();
+        // إذا المستخدم عنده متجر → جيب منتجات متجره فقط
+        if ($user->store_id) {
+            $query->where('store_id', $user->store_id);
+        }
+        // Authorize
+        // $this->authorize('view-any', Product::class);
 
-        return view('dashboard.products.index',compact('products'));
+        // Paginate
+        $products = $query->paginate();
+
+        return view('dashboard.products.index', compact('products'));
     }
 
     /**
@@ -46,11 +48,25 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create',Product::class);
-        $categories = Category::all()->pluck('name','id');
-        $stores=Store::all()->pluck('name','id');
-        // dd($categories);
-        return view('dashboard.products.create',compact('categories','stores'));
+        $user = Auth::guard('admin')->user();
+
+        // نبدأ بكويري عادي
+        $query = Category::query();
+
+        // إذا مو سوبر أدمن → نجيب فقط كاتيجوري نفس قسم متجره
+        if (!$user->super_admin && $user->store_id) {
+            $query->where('department_id', $user->store->department_id);
+        }
+
+        // بعدين نعمل pluck
+        $categories = $query->pluck('name', 'id');
+
+        // السوبر أدمن بيقدر يختار أي متجر
+        $stores = $user->super_admin
+            ? Store::pluck('name', 'id')
+            : Store::where('id', $user->store_id)->pluck('name', 'id');
+
+        return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
     /**
@@ -58,35 +74,49 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create',Product::class);
+        $user = Auth::guard('admin')->user(); // جلب الأدمن الحالي
 
-        $request->validate([
-            'store_id'=>['required','exists:stores,id'],
-            'category_id'=>['required','exists:categories,id'],
-            'name'=>['required','string','max:255'],
-            'description'=>['string'],
-            'image'=>['image','max:10000'],
-            'price'=>['required'],
-            'quantity'=>['required','integer'],
-            'status'=>['required','in:active,archive,draf'],
-            'tags'=>['string']
-        ]);
+        // ✅ Validation
+        $rules = [
+            'category_id' => ['required', 'exists:categories,id'],
+            'name'        => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image'       => ['nullable', 'image', 'max:10000'],
+            'price'       => ['required'],
+            'quantity'    => ['required', 'integer'],
+            'status'      => ['required', 'in:active,archive,draf'],
+            'tags'        => ['nullable', 'string']
+        ];
 
-        $request->merge(['slug'=>Str::slug($request->name)]);
-        $data = $request->except('tags','image');
+        // إذا سوبر أدمن → لازم يرسل store_id
+        if ($user->super_admin) {
+            $rules['store_id'] = ['required', 'exists:stores,id'];
+        }
 
-        $data['image']=$this->upload_image($request,'products__img');
+        $request->validate($rules);
 
+        // ✅ تجهيز البيانات
+        $request->merge(['slug' => Str::slug($request->name)]);
+        $data = $request->except('tags', 'image');
+
+        // إذا المستخدم مو سوبر أدمن → استخدم متجره تلقائياً
+        if (!$user->super_admin) {
+            $data['store_id'] = $user->store_id;
+        }
+
+        // ✅ رفع الصورة
+        $data['image'] = $this->upload_image($request, 'products__img');
+
+        // ✅ إنشاء المنتج
         $product = Product::create($data);
 
-        $tags_id= $this->tags_array($request->post('tags'));
-
+        // ✅ ربط التاغز
+        $tags_id = $this->tags_array($request->post('tags'));
         $product->tags()->sync($tags_id);
 
-        return redirect()->route('dashboard.products.index')->with('success','creaate product success');
-
-
+        return redirect()->route('dashboard.products.index')->with('success', 'Product created successfully!');
     }
+
 
     /**
      * Display the specified resource.
@@ -95,7 +125,7 @@ class ProductController extends Controller
     {
 
         // $this->authorize('view',$product);
-        return view('dashboard.products.show',compact('product'));
+        return view('dashboard.products.show', compact('product'));
     }
 
     /**
@@ -104,8 +134,21 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         // $this->authorize('update',$product);
-        $tags=implode(',',$product->tags()->pluck('name')->toArray());
-        return view('dashboard.products.edit',compact('product','tags'));
+
+        $user = Auth::guard('admin')->user();
+
+        // نبدأ بكويري عادي
+        $query = Category::query();
+
+        // إذا مو سوبر أدمن → نجيب فقط كاتيجوري نفس قسم متجره
+        if (!$user->super_admin && $user->store_id) {
+            $query->where('department_id', $user->store->department_id);
+        }
+
+        // بعدين نعمل pluck
+        $categories = $query->pluck('name', 'id');
+        $tags = implode(',', $product->tags()->pluck('name')->toArray());
+        return view('dashboard.products.edit', compact('product', 'tags','categories'));
     }
 
     /**
@@ -115,29 +158,29 @@ class ProductController extends Controller
     {
         // dd($request);
         // $this->authorize('update',$product);
-        $old_image=$product->image;
-        $data = $request->except(['image','tags']);
-        $patt=$this->upload_image($request,'uploads');
-        if($patt)$data['image']=$patt;
+        $old_image = $product->image;
+        $data = $request->except(['image', 'tags']);
+        $patt = $this->upload_image($request, 'uploads');
+        if ($patt) $data['image'] = $patt;
         $product->update($data);
         $tags = explode(',', $request->post('tags'));
         $saved_tags = Tag::all();
-        $tag_ids=[];
+        $tag_ids = [];
 
-        foreach($tags as $t_name){
+        foreach ($tags as $t_name) {
             $slug = Str::slug($t_name);
-            $tag=$saved_tags->where('slug',$slug)->first();
-            if(!$tag){
-                $tag= Tag::create([
-                    'name'=>$t_name,
-                    'slug'=>$slug
+            $tag = $saved_tags->where('slug', $slug)->first();
+            if (!$tag) {
+                $tag = Tag::create([
+                    'name' => $t_name,
+                    'slug' => $slug
                 ]);
             }
-            $tag_ids[]=$tag->id;
+            $tag_ids[] = $tag->id;
         }
         $product->tags()->sync($tag_ids);
         // dd($product);
-        return redirect()->route('dashboard.products.index')->with('success','update has done');
+        return redirect()->route('dashboard.products.index')->with('success', 'update has done');
     }
 
     /**
@@ -147,34 +190,35 @@ class ProductController extends Controller
     {
         // $this->authorize('delete',$product);
         Product::destroy($product->id);
-        if($product->image){
+        if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
-        return redirect()->route('dashboard.products.index')->with('info','deleted successfuly');
-
+        return redirect()->route('dashboard.products.index')->with('info', 'deleted successfuly');
     }
-    public function upload_image(Request $request,$sfolder= 'products_img'){
-        if(!$request->hasFile('image')){
+    public function upload_image(Request $request, $sfolder = 'products_img')
+    {
+        if (!$request->hasFile('image')) {
             return;
         }
         $image = $request->file('image');
-        $path = $image->store($sfolder,'public');
+        $path = $image->store($sfolder, 'public');
         return $path;
     }
-    public function tags_array($tags_re){
+    public function tags_array($tags_re)
+    {
         $tags_save = Tag::all();
-        $tags=explode(',',$tags_re);
-        $tags_id=[];
-        foreach($tags as $t_name){
+        $tags = explode(',', $tags_re);
+        $tags_id = [];
+        foreach ($tags as $t_name) {
             $t_slug = Str::slug($t_name);
-            $tag = $tags_save->where('slug','=',$t_slug)->first();
-            if(!$tag){
+            $tag = $tags_save->where('slug', '=', $t_slug)->first();
+            if (!$tag) {
                 $tag = Tag::create([
-                    'name'=>$t_name,
-                    'slug'=>$t_slug
+                    'name' => $t_name,
+                    'slug' => $t_slug
                 ]);
             }
-            $tags_id[]=$tag->id;
+            $tags_id[] = $tag->id;
         }
         return $tags_id;
     }

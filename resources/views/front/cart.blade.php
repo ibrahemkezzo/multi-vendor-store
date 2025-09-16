@@ -56,8 +56,8 @@
                     <div class="cart-single-list">
                         <div class="row align-items-center">
                             <div class="col-lg-1 col-md-1 col-12">
-                                <a href="product-details.html"><img src="{{ $item->product->image }}"
-                                        alt="#"></a>
+                                <a href="{{ route('product.show', $item->product->slug) }}"><img src="{{asset('storage/'.$item->product->image) }}"
+                                        alt="#" height="170rem" width="200rem" ></a>
                             </div>
                             <div class="col-lg-4 col-md-3 col-12">
                                 <h5 class="product-name"><a href="{{ route('product.show', $item->product->slug) }}">
@@ -127,14 +127,14 @@
                                             Subtotal<span>{{ App\Helpers\Currency::formate($cart->total(), 'USD') }}</span>
                                         </li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>$29.00</span></li>
+                                        {{-- <li>You Save<span>$29.00</span></li> --}}
                                         <li class="last">You
                                             Pay<span>{{ App\Helpers\Currency::formate($cart->total(), 'USD') }}</span>
                                         </li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('checkout') }}" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                        <a href="{{route('front.home')}}" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
                             </div>

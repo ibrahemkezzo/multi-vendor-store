@@ -21,18 +21,8 @@
                 <x-form.input type='text' name='name' label='product name' :value="$product->name" />
                     {{-- <input type='' /> --}}
             </div>
-            <div class="col-md-6">
-                <label for="category_id" >Category</label><br>
-                <select  name="category_id" id="category_id" class="form-control">
-
-                    @foreach (App\Models\Category::all() as $category)
-                    <option value="{{$category->id}}" @selected(old('category_id',$product->category_id )== $category->id)>
-                    {{$category->name}}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('category_id'))
-                    <div class="text-danger">{{$errors->first()}}</div>
-                @endif
+             <div class="col-md-6">
+                <x-form.selected label="Select The Category" name="category_id" :options="$categories" />
             </div>
         </div>
         <div class="    ">

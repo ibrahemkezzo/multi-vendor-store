@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticateUser {
     public function authenticate($request){
+        // dd(15);
         $username = $request->post(config('fortify.username'));
         $password = $request->post('password');
 
@@ -15,7 +16,7 @@ class AuthenticateUser {
         ->orwhere('email','=',$username)
         ->orwhere('phone_number','=',$username)
         ->first();
-        // dd($username);
+
         if($user && Hash::check($password,$user->password)){
             return $user;
         }

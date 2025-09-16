@@ -24,7 +24,7 @@
                     </div>
                     <div class="cart-img-head">
                         <a class="cart-img" href="product-details.html"><img
-                                src="{{$item->product->image_url}}" alt="#"></a>
+                                src="{{asset('storage/'.$item->product->image)}}" alt="#"></a>
                     </div>
 
                     <div class="content">

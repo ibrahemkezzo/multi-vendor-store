@@ -2,35 +2,37 @@
     <!-- Start Hero Area -->
     <section class="hero-area">
         <div class="container">
-            <x-form.alert type='info'/>
+            <x-form.alert type='info' />
             <div class="row">
                 <div class="col-lg-8 col-12 custom-padding-right">
                     <div class="slider-head">
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
                             <!-- Start Single Slider -->
-                            @foreach ($featureds as $featured )
-                            <div class="single-slider"
-                                style="background-image: url('assets/images/hero/slider-bg1.jpg');">
+                            @foreach ($featureds as $featured)
+                                <div class="single-slider"
+                                    style="background-image: url('assets/images/hero/slider-bg1.jpg');">
 
-                                <div class="product-image">
-                                    <img height="300em" width="250em" style="margin-left: 65%; margin-top:5%" src="{{ asset('storage/'.$featured->image) }}" alt="#">
-                                </div>
-
-
-                                <div class="content">
-                                    <h2><span>No restocking fee ({{($featured->compare_price - $featured->price)}} savings)</span>
-                                        {{$featured->name}}
-                                    </h2>
-                                    <p>{{$featured->description}}</p>
-                                    <h3><span>Now Only</span> {{currency::formate($featured->price)}}</h3>
-                                    <div class="button">
-                                        <a href="{{route('product.show',$featured->slug)}}" class="btn">Shop Now</a>
+                                    <div class="product-image">
+                                        <img height="300em" width="250em" class="feature-img" style=""
+                                            src="{{ asset('storage/' . $featured->image) }}" alt="#">
                                     </div>
+
+
+                                    <div class="content">
+                                        <h2><span>No restocking fee ({{ $featured->compare_price - $featured->price }}
+                                                savings)</span>
+                                            {{ $featured->name }}
+                                        </h2>
+                                        <p class="feature-text">{{ $featured->description }}</p>
+                                        <h3><span>Now Only</span> {{ currency::formate($featured->price) }}</h3>
+                                        <div class="button">
+                                            <a href="{{ route('product.show', $featured->slug) }}" class="btn">Shop
+                                                Now</a>
+                                        </div>
+                                    </div>
+
                                 </div>
-
-                            </div>
-
                             @endforeach
                             <!-- End Single Slider -->
                             <!-- Start Single Slider -->
@@ -61,15 +63,16 @@
                                 style="background-image: url('assets/images/hero/slider-bnr.jpg');">
 
                                 <div class="product-image ">
-                                    <img height="170em" width="120em" style="margin-left: 65%; margin-top:5%" src="{{ asset('storage/'.$TopRate[0]->image )}}" alt="#">
+                                    <img height="170em" width="120em" style="margin-left: 65%; margin-top:5%"
+                                        src="{{ asset('storage/' . $TopRate[0]->image) }}" alt="#">
                                 </div>
 
                                 <div class="content">
                                     <h2>
                                         <span>New line required</span>
-                                        {{$TopRate[0]->name}}
+                                        {{ $TopRate[0]->name }}
                                     </h2>
-                                    <h3>{{currency::formate($TopRate[0]->price)}}</h3>
+                                    <h3>{{ currency::formate($TopRate[0]->price) }}</h3>
 
                                 </div>
                             </div>
@@ -82,7 +85,7 @@
                                     <h2>Weekly Sale!</h2>
                                     <p>Saving up to 50% off all online store items this week.</p>
                                     <div class="button">
-                                        <a class="btn" href="{{route('all-products')}}">Shop Now</a>
+                                        <a class="btn" href="{{ route('all-products') }}">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +111,7 @@
             </div>
             <div class="row">
                 @foreach ($departments as $department)
-                <x-front.department :department="$department"/>
+                    <x-front.department :department="$department" />
                 @endforeach
             </div>
         </div>
@@ -121,7 +124,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-title " >
+                    <div class="section-title ">
                         <h2>Trending Product</h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered alteration in some form.</p>
@@ -131,7 +134,7 @@
             <div class="row">
 
                 @foreach ($products as $product)
-                <x-front.product :product="$product"/>
+                    <x-front.product :product="$product" />
                 @endforeach
 
                 {{-- {{ dd(555)}} --}}
@@ -171,14 +174,15 @@
                         <div class="row align">
                             <div class="content  col-8">
 
-                                <h2>{{$TopRate[1]->name}}</h2>
-                                <p>{{$TopRate[1]->description}} </p>
+                                <h2>{{ $TopRate[1]->name }}</h2>
+                                <p>{{ $TopRate[1]->description }} </p>
                                 <div class="button">
-                                    <a href="{{route('product.show',$TopRate[1]->slug)}}" class="btn">View Details</a>
+                                    <a href="{{ route('product.show', $TopRate[1]->slug) }}" class="btn">View
+                                        Details</a>
                                 </div>
                             </div>
                             <div class="product-image col-4">
-                                <img height="300" src="{{asset('storage/'.$TopRate[1]->image) }}" alt="#">
+                                <img height="300" src="{{ asset('storage/' . $TopRate[1]->image) }}" alt="#">
                             </div>
                         </div>
                     </div>
@@ -188,14 +192,15 @@
                         <div class="row align">
                             <div class="content  col-8">
 
-                                <h2>{{$TopRate[2]->name}}</h2>
-                                <p>{{$TopRate[2]->description}} </p>
+                                <h2>{{ $TopRate[2]->name }}</h2>
+                                <p>{{ $TopRate[2]->description }} </p>
                                 <div class="button">
-                                    <a href="{{route('product.show',$TopRate[2]->slug)}}" class="btn">View Details</a>
+                                    <a href="{{ route('product.show', $TopRate[2]->slug) }}" class="btn">View
+                                        Details</a>
                                 </div>
                             </div>
                             <div class="product-image col-4">
-                                <img height="300" src="{{ asset('storage/'.$TopRate[2]->image) }}" alt="#">
+                                <img height="300" src="{{ asset('storage/' . $TopRate[2]->image) }}" alt="#">
                             </div>
                         </div>
                     </div>
@@ -253,48 +258,71 @@
         </div>
     </section>
 
+    @push('style')
+        <style>
+            /* تنسيق عام للـ slider */
+            .feature-img{
+                margin-left: 65%;
+                margin-top:5%;
+            }
+            /* Media Query لشاشات الموبايل فقط (أقل من 768px) */
+            @media (max-width: 768px) {
+                .feature-img{
+                margin-left: 0%;
+                margin-top:5%;
+                width: 100%;
+                height: 100%;
+            }
+            .feature-text{
+                color: black;
+            }
+            }
+
+        </style>
+    @endpush
+
     <!-- End Shipping Info -->
     @push('script')
-    <script type="text/javascript">
-        //========= Hero Slider
-        tns({
-            container: '.hero-slider',
-            slideBy: 'page',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 0,
-            items: 1,
-            nav: false,
-            controls: true,
-            controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
-        });
+        <script type="text/javascript">
+            //========= Hero Slider
+            tns({
+                container: '.hero-slider',
+                slideBy: 'page',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 0,
+                items: 1,
+                nav: false,
+                controls: true,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+            });
 
-        //======== Brand Slider
-        tns({
-            container: '.brands-logo-carousel',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 15,
-            nav: false,
-            controls: false,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 3,
-                },
-                768: {
-                    items: 5,
-                },
-                992: {
-                    items: 6,
+            //======== Brand Slider
+            tns({
+                container: '.brands-logo-carousel',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    }
                 }
-            }
-        });
-    </script>
+            });
+        </script>
     @endpush
 
 </x-front-layout>

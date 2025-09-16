@@ -34,24 +34,25 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.home','admin/dashboard');
         }
         // dd(config('fortify.guard'));
-        $this->app->instance(LoginResponse::class, new class implements LoginResponse{
-            public function toResponse($request)
-            {
-                if($request->user('admin')){
-                    return redirect()->intended('admin/dashboard');
-                }
-                return redirect()->intended('/');
-            }
-        });
-        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse{
-            public function toResponse($request)
-            {
-                if($request->user('admin')){
-                    return redirect()->intended('admin/dashboard');
-                }
-                return redirect()->intended('/');
-            }
-        });
+        // $this->app->instance(LoginResponse::class, new class implements LoginResponse{
+        //     public function toResponse($request)
+        //     {
+        //         dump($request->user('admin'));
+        //         if($request->user('admin')){
+        //             return redirect()->intended('admin/dashboard');
+        //         }
+        //         return redirect()->intended('/');
+        //     }
+        // });
+        // $this->app->instance(LogoutResponse::class, new class implements LogoutResponse{
+        //     public function toResponse($request)
+        //     {
+        //         if($request->user('admin')){
+        //             return redirect()->intended('/');
+        //         }
+        //         return redirect()->intended('/');
+        //     }
+        // });
     }
 
     /**

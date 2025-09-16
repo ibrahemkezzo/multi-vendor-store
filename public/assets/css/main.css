@@ -3436,8 +3436,9 @@ ol {
 }
 
 .single-product .product-info .price span {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 23px;
+  font-weight: 500;
+  margin-left: 15px ;
   color: #0167F3;
   display: inline-block;
 }
@@ -3470,6 +3471,7 @@ ol {
   background-repeat: no-repeat;
   border-radius: 4px;
   overflow: hidden;
+  height: 20rem;
 }
 
 @media (max-width: 767px) {

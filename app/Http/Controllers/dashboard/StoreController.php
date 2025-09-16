@@ -86,7 +86,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, Store $store)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'=>'sometimes|required|string',
             'department_id'=>'sometimes|required|exists:departments,id',
             'description' => 'nullable|string',
@@ -94,11 +94,12 @@ class StoreController extends Controller
             'cover_image'=>'nullable|image|max:10000',
             'status'=>'sometimes|required|in:active,archived'
         ]);
-
+        // dd($validated);
         $old_logo=$store->logo_image;
         $old_cover = $store->cover_image;
         $data = $request->except(['logo_image','cover_image']);
         $patt1=$this->uploaded_image($request,'logo_image','uploads');
+        // dd($patt1);
         if($patt1)$data['logo_image']=$patt1;
         $patt2=$this->uploaded_image($request,'cover_image','uploads');
         if($patt2)$data['cover_image']=$patt2;
@@ -134,6 +135,7 @@ class StoreController extends Controller
         // $data = $request->except('image');
         $file = $request->file($name_file);
         $path = $file->store($sfolder,'public');//storage file in folder($sfolder) in public disk
+        // dd($path);
          return $path;
     }
 }

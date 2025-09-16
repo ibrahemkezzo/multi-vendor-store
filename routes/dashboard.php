@@ -6,7 +6,7 @@ use App\Http\Controllers\dashboard\DepartmentController;
 use App\Http\Controllers\dashboard\ImportProductController;
 use App\Http\Controllers\dashboard\OrdersController;
 use App\Http\Controllers\dashboard\ProductController;
-use App\Http\Controllers\dashboard\ProfileController;
+use App\Http\Controllers\dashboard\ProfileController as AdminProfileController;
 use App\Http\Controllers\dashboard\RolesController;
 use App\Http\Controllers\dashboard\StoreController;
 use App\Http\Controllers\dashboard\UsersController;
@@ -23,15 +23,23 @@ Route::group([
     //'namespace'=>'App\Http\Controllers\dashboard\' the name space for controller if i want to use the old calling way(namecontrooler@namemethod)
 ],
 function(){
-    Route::get('/profile/edit',[ProfileController::class,'edit'])->name('profile.edit');
-    Route::patch('/profile/edit',[ProfileController::class,'update'])->name('profile.update');
+    Route::get('/profile/edit',[AdminProfileController::class,'edit'])->name('profile.edit');
+
+    // تحديث بيانات الأدمن
+    Route::patch('/profile/admin', [AdminProfileController::class, 'updateAdmin'])->name('profile.update');
+
+    // تحديث بيانات المتجر
+    Route::patch('/profile/store/{store}', [AdminProfileController::class, 'updateStore'])->name('store.update');
+
+    // تحديث كلمة المرور
+    Route::put('/password', [AdminProfileController::class, 'updatePassword'])->name('password.update');
     Route::get('/',[DashboardController::class,'index']);
     Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trash');
     Route::put('/categories/{category}/restore',[CategoriesController::class,'restore'])->name('categories.restore');
     Route::delete('/categories/{category}/force-delete',[CategoriesController::class,'force_delete'])
     ->name('categories.force_delete');
     Route::get('/products/import',[ImportProductController::class,'create'])->name('product.import');
-    Route::post('/products/import',[ImportProductController::class,'store']);
+    Route::post('/products/import',[ImportProductController::class,'store'])->name('product.import');
     Route::resource('/categories',CategoriesController::class);
     Route::resource('/products',ProductController::class);
     Route::resource('/departments',DepartmentController::class);

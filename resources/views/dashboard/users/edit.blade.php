@@ -25,6 +25,24 @@
             </div>
 
         </form>
+        <form action="{{ route('dashboard.users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('put')
+
+            <div class="form-group">
+                <x-form.input type='email' name='email' label='Email' :value="$user->email" />
+            </div>
+            <div class="form-group">
+                <x-form.input type='password' name='password' label='Password' attreibute="nullable" />
+            </div>
+
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary form-control"> update the password</button>
+            </div>
+
+        </form>
     </div>
 
 @endsection

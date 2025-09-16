@@ -22,6 +22,7 @@
 
             <th>ID</th>
             <th>NAME ROLE</th>
+            <th>HIS STORE</th>
             <th>CREATED_AT</th>
             <th>@if(Auth::user()->can('admin.create',Admin::class))<a href="{{route('dashboard.admins.create')}}" class="btn btn-sm btn-outline-primary">create</a>@endif</th>
             <th></th>
@@ -35,6 +36,7 @@
 
             <td>{{$admin->id}}</td>
             <td> <a href="{{route('dashboard.admins.show',$admin->id)}}">{{$admin->name}}</a> </td>
+            <td>{{isset($admin->store_id)?$admin->store->name:'no store'}}</td>
             <td>{{$admin->created_at}}</td>
             {{-- <td></td>
             <td></td> --}}

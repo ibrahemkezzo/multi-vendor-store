@@ -51,8 +51,9 @@ class DepartmentController extends Controller
      */
     public function show(string $id)
     {
+        $department = Department::findOrFail($id);
         $stores = Store::where('department_id',$id)->paginate();
-        return view('dashboard.departments.show',compact('stores'));
+        return view('dashboard.departments.show',compact('stores','department'));
     }
 
     /**

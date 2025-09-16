@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function filterCategory(int $id){
         $category = Category::findOrFail($id);
         $categories = Category::all();
-        $products = Product::where('category_id', $id)->get();
+        $products = Product::where('category_id', $id)->paginate(12);
         $departments = Department::all();
         $department = $category->department;
         // dd($department);

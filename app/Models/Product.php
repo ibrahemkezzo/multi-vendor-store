@@ -52,6 +52,31 @@ protected $fillable=[
     public function tags(){
         return $this->belongsToMany(Tag::class,'product_tag','product_id','tag_id','id','id');
     }
+
+        /**
+     * العلاقة العكسية مع OrderItems - للحصول على عناصر الطلبات التي تحتوي على هذا المنتج.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
+    }
+
+    /**
+     * العلاقة العكسية مع Orders - للحصول على الطلبات التي تحتوي على هذا المنتج (many-to-many).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_items', 'product_id', 'order_id', 'id', 'id')
+                    ->using(OrderItem::class)
+                    ->as('order_item')
+                    ->withPivot(['product_name', 'price', 'quantity', 'options']);
+    }
+
+    
     public function scopeActive(Builder $builder){
 
         return $builder->where('status','=','active');

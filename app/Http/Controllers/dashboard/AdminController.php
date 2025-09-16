@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Role;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,8 +29,11 @@ class AdminController extends Controller
      */
     public function create()
     {
+                // السوبر أدمن بيقدر يختار أي متجر
+        $stores = Store::pluck('name', 'id');
         return view('dashboard.admins.create',[
             'roles'=>Role::all(),
+            'stores' => $stores,
             'admin'=> new Admin()
         ]);
 
@@ -41,9 +45,17 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         // dd($request->post('roles'));
-        $request->validate([
-            'name'=>['required','string','max:255'],
-            'roles'=>['required','array']
+      $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:admins,username', 'regex:/^\S*$/'],
+            'email' => ['required', 'email', 'max:255', 'unique:admins,email'],
+            'phone_number' => ['required', 'string', 'max:20'],
+            'store_id' => ['nullable', 'exists:stores,id'],
+            'roles' => ['required', 'array', 'min:1'],
+            'roles.*' => ['exists:roles,id'],
+        ], [
+            'username.regex' => 'The username must not contain spaces.',
+            'roles.required' => 'At least one role must be selected.',
         ]);
         $data_admin = $request->except('password');
         $pass = Hash::make($request->post('password'));
@@ -74,9 +86,10 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
+        $stores = Store::pluck('name', 'id');
         $roles = Role::all();
         $admin_role = $admin->roles()->pluck('id')->toArray();
-        return view('dashboard.admins.edit',compact('admin','roles','admin_role'));
+        return view('dashboard.admins.edit',compact('admin','roles','admin_role','stores'));
     }
 
     /**
@@ -85,9 +98,17 @@ class AdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         // dd($request->post('roles'));
-        $request->validate([
-            'name'=>['required','string','max:255'],
-            'roles'=>['required','array']
+            $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:admins,username,' . $admin->id, 'regex:/^\S*$/'],
+            'email' => ['required', 'email', 'max:255', 'unique:admins,email,' . $admin->id],
+            'phone_number' => ['required', 'string', 'max:20'],
+            'store_id' => ['nullable', 'exists:stores,id'],
+            'roles' => ['required', 'array', 'min:1'],
+            'roles.*' => ['exists:roles,id'],
+        ], [
+            'username.regex' => 'The username must not contain spaces.',
+            'roles.required' => 'At least one role must be selected.',
         ]);
 
         $admin->update($request->all());

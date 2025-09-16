@@ -36,7 +36,12 @@ class Store extends Model
        return $this->hasMany(Product::class,'store_id','id');
     }
 
-    public function department(){                                                                                                             
+    public function department(){
         return $this->belongsTo(Department::class);
+    }
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class, 'store_id', 'id');
     }
 }

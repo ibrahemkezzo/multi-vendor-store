@@ -25,7 +25,7 @@ class  CheckoutController extends Controller
     public function store (Request $request,CartRepository $cart){
 
         $items=$cart->get()->groupBy('product.store_id')->all();
-
+        // dd($request->all(),$items);
         DB::beginTransaction();
         try{
             foreach ($items as $store_id => $cart_items) {
@@ -43,21 +43,22 @@ class  CheckoutController extends Controller
                         'product_name'=>$item->product->name,
                         'price'=>$item->product->price
                     ]);
+
+                }
                 foreach ($request->post('addr') as $type => $address) {
                     $address['type']=$type;
                     $order->addresses()->create($address);
                 }
 
 
-                DB::commit();
+                // DB::commit();
                 // event('order.created',$order);
                 event(new OrderCreate($order));
-                }
             }
         }catch(Throwable $e){
             DB::rollBack();
             throw $e;
         }
-       return redirect()->route('order.payment.create',$order)->with('success','the order has done');
+       return redirect()->route('order.payment.create',$order->id)->with('success','the order has done');
     }
 }

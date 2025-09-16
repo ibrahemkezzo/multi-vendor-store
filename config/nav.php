@@ -71,5 +71,13 @@ return[
         'ability'=>'user.view'
 
     ],
+    [
+        'icon'=>'fas fa-user nav-icon',
+        'route'=>'dashboard.profile.edit',
+        'title'=>'profile',
+        'active'=>'dashboard.proflie.*',
+        'ability'=>'dashboard'
+
+    ],
 
 ];

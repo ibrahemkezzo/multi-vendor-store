@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
@@ -14,9 +15,18 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['store:id,name','user:id,name'])->paginate(5);
+        $user = Auth::user();
 
-        return view('dashboard.order.index',['orders'=>$orders]);
+        $query = Order::with(['store:id,name', 'user:id,name']);
+
+        // إذا الأدمن عنده متجر → عرض الطلبات الخاصة بمتجره فقط
+        if ($user->store_id) {
+            $query->where('store_id', $user->store_id);
+        }
+
+        $orders = $query->paginate(5);
+
+        return view('dashboard.order.index', ['orders' => $orders]);
     }
 
     /**
@@ -38,9 +48,7 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -50,10 +58,10 @@ class OrdersController extends Controller
         $order = Order::with(['items'])->findorFail($id);
         $stores = Store::all();
         foreach ($order->items as $item) {
-           $items = $item->name;
+            $items = $item->name;
         }
 
-        return view('dashboard.order.edit',['order'=>$order, 'stores'=>$stores,'items'=>$items]);
+        return view('dashboard.order.edit', ['order' => $order, 'stores' => $stores, 'items' => $items]);
     }
 
     /**

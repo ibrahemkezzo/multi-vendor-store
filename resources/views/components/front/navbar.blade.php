@@ -54,7 +54,7 @@
                                         data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
                                         aria-expanded="false" aria-label="Toggle navigation">{{ __('Pages') }}</a>
                                     <ul class="sub-menu collapse" id="submenu-1-2">
-                                        <li class="nav-item"><a href="about-us.html">{{ __('Home') }}</a></li>
+                                        <li class="nav-item"><a href="{{route('front.home')}}">{{ __('Home') }}</a></li>
                                         <li class="nav-item"><a
                                                 href="{{ route('shop-stores') }}">{{ __('Stores') }}</a></li>
                                         <li class="nav-item"><a href="{{route('contact-us')}}">{{ __('Contact US') }}</a></li>

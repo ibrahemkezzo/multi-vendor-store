@@ -1,6 +1,6 @@
 @extends('layouts.dashboards')
 
-@section('title', "$admin->name")
+@section('title', "$admin->id  -  $admin->name")
 
 @section('breadcrumb')
     @parent
@@ -13,23 +13,46 @@
 @endsection
 
 @section('content')
-
-    <table class="table">
+<div class="content container-fluid col-lg-10 ">
+    <table class="table col-md-12">
         <thead>
             <tr>
                 <th>NAME ROLE</th>
-               
+
+                <td>
+                @foreach ($roles as $role)
+                    {{$role.' , '}}
+                @endforeach
+                </td>
+            </tr>
+            <tr>
+                <th>STORE OWNER</th>
+                <td> {{isset($admin->store_id)?$admin->store->name:'no store'}}</td>
+            </tr>
+            <tr>
+                <th>EMAIL</th>
+                <td> {{isset($admin->email)?$admin->email:'no email'}}</td>
+            </tr>
+            <tr>
+                <th>USER NAME</th>
+                <td> {{isset($admin->username)?$admin->username:'no username'}}</td>
             </tr>
         </thead>
         <tbody>
-            @foreach ($roles as $role)
+
             <tr>
-                <td>{{$role}}</td>
 
             </tr>
-            @endforeach
         </tbody>
     </table>
-    <a class="btn btn-sm btn-outline-primary form-control" href="{{route('dashboard.admins.index')}}">back to admins</a>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <a class="btn btn-outline-secondary form-control" href="{{route('dashboard.admins.index')}}">back to admins</a>
+        </div>
+        <div class="form-group col-md-3">
+            <a class="btn btn-outline-primary form-control" href="{{route('dashboard.admins.edit',$admin->id)}}">update this admin</a>
+        </div>
 
+    </div>
+</div>
 @endsection

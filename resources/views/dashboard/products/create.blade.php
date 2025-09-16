@@ -25,9 +25,11 @@
             <x-form.input name='name' type='text' label='Name Product'/>
         </div>
         <div class="form-row">
-            <div class="col-md-6">
-                <x-form.selected label="Select The Store" name="store_id" :options="$stores" />
-            </div>
+            @if (Auth::user()->super_admin)
+                <div class="col-md-6">
+                    <x-form.selected label="Select The Store" name="store_id" :options="$stores" />
+                </div>
+            @endif
             <div class="col-md-6">
                 <x-form.selected label="Select The Category" name="category_id" :options="$categories" />
             </div>

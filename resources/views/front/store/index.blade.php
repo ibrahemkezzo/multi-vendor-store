@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Cart</h1>
+                            <h1 class="page-title">The Stores</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
@@ -149,7 +149,7 @@
                         <div class="product-grid-topbar">
                             <div class="row align-items-center">
                                 <div class="col-lg-7 col-md-8 col-12">
-                                    <div class="product-sorting">
+                                    {{-- <div class="product-sorting">
                                         <label for="sorting">Sort by:</label>
                                         <select class="form-control" id="sorting">
                                             <option>Popularity</option>
@@ -160,7 +160,9 @@
                                             <option>Z - A Order</option>
                                         </select>
                                         <h3 class="total-show-product">Showing: <span>1 - 12 items</span></h3>
-                                    </div>
+                                    </div> --}}
+
+                                    {{$stores->withQueryString()->links('pagination::tailwind')}}
                                 </div>
                                 <div class="col-lg-5 col-md-4 col-12">
                                     <nav>
@@ -181,13 +183,15 @@
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="product-image">
-                                                <img src="{{$store->cover_image}}" alt="#">
+
+                                                <img style="height: 10rem; width:20rem;"
+                                                 src="{{asset('storage/'.$store->cover_image)}}" alt="#">
 
                                             </div>
                                             <div class="product-info">
                                                 <span class="category">{{$store->department->name}}</span>
                                                 <h4 class="title">
-                                                    <a href="product-grids.html">{{$store->name}}</a>
+                                                    <a href="{{route('shop.stores.show',$store->slug)}}">{{$store->name}}</a>
                                                 </h4>
                                                 <ul class="review">
                                                     <li><i class="lni lni-star-filled"></i></li>
@@ -202,7 +206,7 @@
                                         </div>
                                         <!-- End Single Product -->
                                     </div>
-                                    
+
                                     @endforeach
 
 
@@ -234,7 +238,8 @@
                                             <div class="row align-items-center">
                                                 <div class="col-lg-4 col-md-4 col-12">
                                                     <div class="product-image">
-                                                        <img src="{{$store->logo_image}}" alt="#">
+                                                        <img style="height: 8rem; width:20rem;"
+                                                         src="{{asset('storage/'.$store->cover_image)}}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-12">
@@ -262,7 +267,6 @@
                                     @endforeach
                                 </div>
 
-                            {{$stores->withQueryString()->links();}}
                                 {{-- <div class="row">
                                     <div class="col-12">
                                         <!-- Pagination -->

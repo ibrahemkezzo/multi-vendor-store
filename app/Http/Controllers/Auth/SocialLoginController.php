@@ -32,8 +32,8 @@ class SocialLoginController extends Controller
                 return redirect()->route('front.home');
             }
         }catch(Throwable $e){
-            return redirect()->route('login')->withErrors(['email'=>$e->getMessage()]);
-            
+            return redirect()->route('front.login')->withErrors(['email'=>$e->getMessage()]);
+
 
         }
     }

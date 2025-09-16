@@ -4,17 +4,27 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>{{$title}}</title>
+    <title>{{ $title }}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.svg')}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}" />
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/LineIcons.3.0.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/tiny-slider.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/glightbox.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/LineIcons.3.0.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <style>
+        .profile-link {
+            text-decoration: none;
+            color: white;
+        }
+
+        .profile-link:hover {
+            color: rgb(0, 0, 255);
+        }
+    </style>
 
     @stack('style')
 
@@ -67,58 +77,68 @@
                                 </li> --}}
                                 <li>
                                     <div class="select-position">
-                                        <form action="#" method="get" >
+                                        <form action="#" method="get">
 
                                             <select name="locale" id="select5" onchange="this.form.submit()">
-                                                <option value="en" @selected(Session::get('locale')== 'en')>English</option>
+                                                <option value="en" @selected(Session::get('locale') == 'en')>English</option>
                                                 {{-- <option value="1">Español</option> --}}
                                                 {{-- <option value="2">Filipino</option> --}}
                                                 {{-- <option value="3">Français</option> --}}
-                                                <option value="ar" @selected(Session::get('locale')== 'ar')>العربية</option>
+                                                <option value="ar" @selected(Session::get('locale') == 'ar')>العربية</option>
                                                 {{-- <option value="5">हिन्दी</option> --}}
                                                 {{-- <.option value="6">বাংলা</option> --}}
                                             </select>
                                         </form>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="{{route('front.home')}}">{{__('Home')}}</a></li>
-                                <li><a href="about-us.html">{{__('About Us')}}</a></li>
-                                <li><a href="contact.html">{{__('Contact Us')}}</a></li>
+                                <li><a href="{{ route('front.home') }}">{{ __('Home') }}</a></li>
+                                <li><a href="{{ route('about-us') }}">{{ __('About Us') }}</a></li>
+                                <li><a href="{{ route('contact-us') }}">{{ __('Contact Us') }}</a></li>
+                                <li><a href="{{ route('stores.create') }}">{{ __('Create Owner Store') }}</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             @auth('web')
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                {{Auth::guard('web')->user()->name}}
-                            </div>
-                            <ul class="user-login">
-                                <li>
-                                    <form action="{{route('logout')}}" method="POST">@csrf<button class="btn btn-info" type="submit">{{__('logout')}}</button></form>
-                                </li>
+                                <div class="user dropdown">
+                                    <a href="#" class="profile-link" id="userDropdown">
+                                        <i class="lni lni-user"></i>
+                                        {{ Auth::guard('web')->user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu mt-3" id="dropdownMenu">
+                                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('Profile')}}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('orders.index') }}">{{__('My Orders')}}</a></li>
+                                    </ul>
+                                </div>
+                                <ul class="user-login">
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">@csrf<button
+                                                class="btn btn-info" type="submit">{{ __('logout') }}</button></form>
+                                    </li>
 
-                            </ul>
+                                </ul>
                             @else
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                {{__('Hello')}}
-                            </div>
-                            <ul class="user-login">
-                                <li>
-                                    <a href="{{route('login')}}">{{__('Sign In')}}</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('register')}}">{{__('Register')}}</a>
-                                </li>
-                            </ul>
+                                <div class="user">
+                                    <i class="lni lni-user"></i>
+                                    {{ __('Hello') }}
+                                </div>
+                                <ul class="user-login">
+                                    <li>
+                                        <a href="{{ route('login') }}">{{ __('Sign In') }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                </ul>
                             @endauth
                         </div>
                     </div>
@@ -134,7 +154,7 @@
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="index.html">
-                            <img src="{{asset('assets/images/logo/logo.svg')}}"alt="Logo">
+                            <img src="{{ asset('assets/images/logo/logo.svg') }}"alt="Logo">
                         </a>
                         <!-- End Header Logo -->
                     </div>
@@ -146,7 +166,7 @@
                                 <div class="search-select">
                                     <div class="select-position">
                                         <select id="select1">
-                                            <option selected>{{__('All')}}</option>
+                                            <option selected>{{ __('All') }}</option>
                                             <option value="1">option 01</option>
                                             <option value="2">option 02</option>
                                             <option value="3">option 03</option>
@@ -156,7 +176,7 @@
                                     </div>
                                 </div>
                                 <div class="search-input">
-                                    <input type="text" placeholder="{{__('Search')}}">
+                                    <input type="text" placeholder="{{ __('Search') }}">
                                 </div>
                                 <div class="search-btn">
                                     <button><i class="lni lni-search-alt"></i></button>
@@ -170,7 +190,7 @@
                         <div class="middle-right-area">
                             <div class="nav-hotline">
                                 <i class="lni lni-phone"></i>
-                                <h3>{{__('Hotline')}}:
+                                <h3>{{ __('Hotline') }}:
                                     <span>(+100) 123 456 7890</span>
                                 </h3>
                             </div>
@@ -183,9 +203,9 @@
                                 </div> --}}
 
 
-                                    <!-- Shopping Item -->
-                                    <x-cart-menu/>
-                                    <!--/ End Shopping Item -->
+                                <!-- Shopping Item -->
+                                <x-cart-menu />
+                                <!--/ End Shopping Item -->
 
 
                             </div>
@@ -198,14 +218,14 @@
 
         <!-- End Header Middle -->
         <!-- Start Header Bottom -->
-        <x-front.navbar/>
+        <x-front.navbar />
         <!-- Start Header Bottom -->
     </header>
     <!-- End Header Area -->
 
     {{-- {{dd(555)}} --}}
-            {{$breadcrumb ?? ''}}
-            {{$slot}}
+    {{ $breadcrumb ?? '' }}
+    {{ $slot }}
     <!-- Start Footer Area -->
     <footer class="footer">
         <!-- Start Footer Top -->
@@ -216,7 +236,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="{{asset('assets/images/logo/white-logo.svg')}}"alt="#">
+                                    <img src="{{ asset('assets/images/logo/white-logo.svg') }}"alt="#">
                                 </a>
                             </div>
                         </div>
@@ -325,13 +345,13 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img src="{{asset('assets/images/footer/credit-cards-footer.png')}}"alt="#">
+                                <img src="{{ asset('assets/images/footer/credit-cards-footer.png') }}"alt="#">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
                             <div class="copyright">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                        target="_blank">GrayGrids</a></p>
+                                <p> Developed by<a href="https://portfolio.ibrahimkzzo.com/" rel="nofollow"
+                                        target="_blank">Eng.Ibrahem Kezzo</a></p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
@@ -359,10 +379,37 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
-    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/tiny-slider.js')}}"></script>
-    <script src="{{asset('assets/js/glightbox.min.js')}}"></script>
-    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        // JavaScript مخصص لتشغيل القائمة المنسدلة
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.getElementById('userDropdown');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            // فتح/إغلاق القائمة عند النقر
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+
+            // إغلاق القائمة عند النقر على خيار
+            dropdownMenu.querySelectorAll('.dropdown-item').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+        });
+    </script>
     @stack('script')
 </body>
 

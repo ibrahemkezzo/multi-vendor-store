@@ -25,16 +25,13 @@
             </tr>
         </thead>
         <tbody>
-            @php
-                $products=$department->products()->with(['store'])->latest()->paginate(5);
-            @endphp
-            @forelse ($products as $product)
+            @forelse ($stores as $store)
                 <tr>
 
 
-                    <td><img src="{{ asset('storage/' . $store->image) }}"alt="" width="80px"></td>
-                    <td> {{ $store->name }}</a> </td>
-                    <td>{{ $product->status }}</td>
+                    <td><img src="{{ asset('storage/' . $store->cover_image) }}"alt="" width="80px"></td>
+                    <td><a href="{{route('dashboard.stores.show',$store->id)}}"> {{ $store->name }}</a> </td>
+                    <td>{{ $store->status }}</td>
 
                 @empty
                     <td colspan="5">there is not stores</td>
@@ -43,6 +40,6 @@
             @endforelse
         </tbody>
     </table>
-{{$products->links()}}
+{{$stores->links()}}
 
 @endsection

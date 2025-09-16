@@ -39,6 +39,7 @@
             <th>LOGO</th>
             <th>COVER</th>
             <th>NAME</th>
+            <th>OWNER</th>
             <th>DEPARTMENT</th>
             <th>PRODUCTS_COUNT</th>
             <th>STATE</th>
@@ -54,9 +55,22 @@
 
 
             <td>{{$store->id}}</td>
-            <td><img src="{{asset('storage/'.$store->logo_image)}}"alt="" width="80px" ></td>
-            <td><img src="{{asset('storage/'.$store->cover_image)}}"alt="" width="80px" ></td>
+            <td><img src="{{asset('storage/'.$store->logo_image)}}"alt=""  class="mt-2 rounded-circle object-fit-cover" height="50px" width="50px" ></td>
+            <td><img src="{{asset('storage/'.$store->cover_image)}}"alt="" width="100px"height="60px"  ></td>
             <td> <a href="{{route('dashboard.stores.show',$store->id)}}">{{$store->name}}</a> </td>
+            <td>
+                @if ($store->admins->isNotEmpty())
+                    <ul class="list-unstyled mb-0">
+                        @foreach ($store->admins as $admin)
+                            <li>
+                                <a href="{{ route('dashboard.admins.show', $admin->id) }}">{{ $admin->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <span class="text-muted">No admins assigned</span>
+                @endif
+            </td>
             <td>{{$store->department->name}}</td>{{--{{$store->parent?$store->parent->name:'-'}}--}}
             <td>{{$store->product_count}}</td>
             <td>{{$store->status}}</td>

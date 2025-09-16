@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class DepartmentControeller extends Controller
 {
     public function index(){
-        $departments = Department::all();
+        $departments = Department::paginate(12);
         return view('front.departments.index',compact('departments'));
     }
 
@@ -22,7 +22,7 @@ class DepartmentControeller extends Controller
         $department = Department::findOrFail($id);
         $storeIds = Store::where('department_id',$id)->pluck('id');
         $categories = Category::all();
-        $products = Product::whereIn('store_id', $storeIds)->get();
+        $products = Product::whereIn('store_id', $storeIds)->paginate(12);
         // dd($products);
 
         return view('front.departments.show2',compact('departments','department','products','categories'));

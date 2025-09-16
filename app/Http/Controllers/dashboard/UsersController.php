@@ -74,8 +74,12 @@ class UsersController extends Controller
         $request->validate([
             'name'=>'sometimes|required|string',
             'email'=>'sometimes|required|email',
+            'password'=>'sometimes|required',
             'phone_number'=>'sometimes|required|string',
         ]);
+        if($request->password != null){
+            $request->password = Hash::make($request->password);
+        }
         $user->update($request->all());
         return redirect()->route('dashboard.users.index')->with('success','create user success');
     }

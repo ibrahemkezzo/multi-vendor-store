@@ -22,4 +22,11 @@ class HomeController extends Controller
     public function show(){
 
     }
+
+    public function aboutUs(){
+        return view('front.about-us');
+    }
+    public function contactUs(){
+        return view('front.contact-us');
+    }
 }

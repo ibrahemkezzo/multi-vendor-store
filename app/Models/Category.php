@@ -61,4 +61,10 @@ class Category extends Model
     public function products(){
       return $this->hasMany(Product::class,'category_id','id');
     }
+
+     // Accessor to get the count of products
+    public function getProductsCountAttribute()
+    {
+        return $this->products()->count();
+    }
 }

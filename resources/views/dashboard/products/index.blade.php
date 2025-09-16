@@ -54,7 +54,8 @@
             @endcan --}}
             {{-- @dd(Auth::user()->can('view',Product::class))
             @dd(Auth::user()->hasAbility('product.create')) --}}
-            @if (Auth::user()->can('create',Product::class))
+            {{-- @dd(Auth::user()->hasAbility('product.create')) --}}
+            @if (Auth::user()->hasAbility('product.create'))
             <th><a href="{{route('dashboard.products.create')}}" class="btn btn-sm btn-outline-primary">create</a></th>
             @endif
             <th></th>

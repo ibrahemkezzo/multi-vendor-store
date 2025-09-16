@@ -24,5 +24,9 @@ public function categories()
 {
     return $this->hasMany(Category::class);
 }
-
+ // Accessor to get the count of products
+    public function getProductsCountAttribute()
+    {
+        return $this->products()->count();
+    }
 }

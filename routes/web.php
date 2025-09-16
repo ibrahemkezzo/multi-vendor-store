@@ -9,6 +9,7 @@ use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\front\CurrencyConverterController;
 use App\Http\Controllers\front\DepartmentControeller;
 use App\Http\Controllers\front\HomeController;
+use App\Http\Controllers\front\OrderController;
 use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\ShopStoreController;
@@ -79,19 +80,27 @@ Route::get('shop/stores/index',[ShopStoreController::class,'index'])
 Route::get('shop/stores/show/{store:slug}',[ShopStoreController::class,'show'])
 ->name('shop.stores.show');
 
+Route::get('/stores/create', [ShopStoreController::class, 'create'])->name('stores.create');
+Route::post('/stores', [ShopStoreController::class, 'store'])->name('stores.store');
 Route::get('/department/filter_store/{id}',[DepartmentControeller::class,'filterStore'])->name('front.department.filter-store');
 
 Route::get('/department',[DepartmentControeller::class,'index'])->name('front.department.index');
 
 Route::get('/department/{id}',[DepartmentControeller::class,'show'])->name('front.department.show');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::put('/orders/{order}/items/{orderItem}', [OrderController::class, 'updateItem'])->name('orders.item.update');
+    Route::delete('/orders/{order}/items/{orderItem}', [OrderController::class, 'destroyItem'])->name('orders.item.destroy');
 });
 
 Route::get('categories',[])->name('categories.index');
-Route::get('contact-us',[])->name('contact-us');
+Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
+Route::get('about-us',[HomeController::class,'aboutUs'])->name('about-us');
 
 require __DIR__ . '/dashboard.php';
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
