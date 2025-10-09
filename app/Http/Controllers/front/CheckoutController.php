@@ -16,49 +16,80 @@ use Throwable;
 
 class  CheckoutController extends Controller
 {
-    public function create(CartRepository $cart){
-        if($cart->get()->count()==0){
+    /**
+     * Show the checkout page with cart items and countries.
+     *
+     * @param \App\Repositories\Cart\CartRepository $cart
+     * @return \Illuminate\View\View
+     * @throws \App\Exceptions\InvalidOrderException
+     */
+    public function create(CartRepository $cart)
+    {
+        if ($cart->get()->count() == 0) {
             throw new InvalidOrdeerException('cart is empty');
         }
-        return view('front.checkout',['cart'=>$cart,'countries'=>Countries::getNames()]);
+        return view('front.checkout', ['cart' => $cart, 'countries' => Countries::getNames()]);
     }
-    public function store (Request $request,CartRepository $cart){
+    /**
+     * Store a new order from the cart items and empty the cart.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Repositories\Cart\CartRepository $cart
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request, CartRepository $cart)
+    {
+        $items = $cart->get()->groupBy('product.store_id')->all();
 
-        $items=$cart->get()->groupBy('product.store_id')->all();
-        // dd($request->all(),$items);
         DB::beginTransaction();
-        try{
+        try {
+            $order_count = 0;
             foreach ($items as $store_id => $cart_items) {
-               $order= Order::create([
-                    'store_id'=>$store_id,
-                    'user_id'=>Auth::id(),
-                    'payment_method'=>'cod'
+                $order = Order::create([
+                    'store_id' => $store_id,
+                    'user_id' => Auth::id(),
+                    'payment_method' => 'cod',
+                    'tax' => 0, // Adjust based on your tax logic
+                    'shipping' => 0, // Adjust based on your shipping logic
+                    'discount' => 0, // Adjust based on your discount logic
+                    'total' => 0, // Initialize total, will update after items
                 ]);
 
+                $product_total = 0;
                 foreach ($cart_items as $item) {
-                    OrderItem::create([
-                        'order_id'=>$order->id,
-                        'product_id'=> $item->product->id,
-                        'quantity'=>$item->quantity,
-                        'product_name'=>$item->product->name,
-                        'price'=>$item->product->price
-                    ]);
+                    $item_total = $item->product->price * $item->quantity;
+                    $product_total += $item_total;
 
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product->id,
+                        'quantity' => $item->quantity,
+                        'product_name' => $item->product->name,
+                        'price' => $item->product->price,
+                    ]);
                 }
+
+                // Update order total with product total plus tax, shipping, minus discount
+                $order->update([
+                    'total' => $product_total + $order->tax + $order->shipping - $order->discount,
+                ]);
+
                 foreach ($request->post('addr') as $type => $address) {
-                    $address['type']=$type;
+                    $address['type'] = $type;
                     $order->addresses()->create($address);
                 }
 
-
-                // DB::commit();
-                // event('order.created',$order);
-                event(new OrderCreate($order));
+                // event(new OrderCreate($order));
+                $order_count++;
             }
-        }catch(Throwable $e){
+
+            DB::commit();
+            // Empty the cart for the authenticated user
+            $cart->empty();
+            return redirect()->route('orders.index')->with('success', __('Orders created successfully.', ['count' => $order_count]));
+        } catch (Throwable $e) {
             DB::rollBack();
-            throw $e;
+            return $e;
         }
-       return redirect()->route('order.payment.create',$order->id)->with('success','the order has done');
     }
 }

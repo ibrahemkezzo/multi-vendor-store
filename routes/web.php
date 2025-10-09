@@ -96,6 +96,7 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{order}/items/{orderItem}', [OrderController::class, 'updateItem'])->name('orders.item.update');
     Route::delete('/orders/{order}/items/{orderItem}', [OrderController::class, 'destroyItem'])->name('orders.item.destroy');
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 });
 
 Route::get('categories',[])->name('categories.index');

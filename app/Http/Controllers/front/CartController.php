@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
 use App\Observers\CartObserver;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -16,12 +18,21 @@ class CartController extends Controller
     //     $this->cart=$cart;
     // }
     /**
-     * Display a listing of the resource.
+     * Display the cart with the count of pending orders for the authenticated user.
+     *
+     * @param \App\Repositories\CartRepository $cart
+     * @return \Illuminate\View\View
      */
     public function index(CartRepository $cart)
     {
+        $orders_count = Order::where('user_id', Auth::id())
+                            ->where('status', 'pending')
+                            ->count();
 
-        return view('front.cart',['cart'=>$cart]);
+        return view('front.cart', [
+            'cart' => $cart,
+            'orders_count' => $orders_count
+        ]);
     }
 
     /**
@@ -41,7 +52,7 @@ class CartController extends Controller
         $product = Product::findOrFail($request->post('product_id'));
         $cart->add($product,$request->quantity);
         // $this->cart->add($product,$request->quantity);
-        return redirect()->route('front.home');
+        return redirect()->back()->with('success','add product is done');
     }
 
 

@@ -6369,14 +6369,33 @@ blockquote span {
   display: inline-block;
   float: right;
 }
+.shopping-cart .total-amount .left ul li {
+  font-size: 14px;
+  font-weight: 500;
+  color: #081828;
+  margin-bottom: 12px;
+}
+
+.shopping-cart .total-amount .left ul li span {
+  display: inline-block;
+  float: right;
+}
 
 .shopping-cart .total-amount .coupon {
+  /* padding: 40px;
+  width: 40%;
+  border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 4px;
+  margin-top: 40px; */
+  /* display: inline-block; */
+  width: 25em;
   padding: 40px;
   border: 1px solid #eee;
   background-color: #fff;
   border-radius: 4px;
   margin-top: 40px;
-  display: inline-block;
+
 }
 
 @media (max-width: 767px) {
@@ -6405,6 +6424,10 @@ blockquote span {
 }
 
 .shopping-cart .total-amount .coupon .button {
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: center;
+  /* padding: 12px 20px; */
   display: inline-block;
 }
 
@@ -6415,12 +6438,10 @@ blockquote span {
 }
 
 .shopping-cart .total-amount .coupon button {
-  border: none;
-  height: 46px;
-  display: inline-block;
-  margin-left: 8px;
-  position: relative;
-  top: -2px;
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: center;
+  padding: 12px 20px;
 }
 
 @media (max-width: 767px) {

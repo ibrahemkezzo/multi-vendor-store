@@ -114,18 +114,20 @@
                                         {{ Auth::guard('web')->user()->name }}
                                     </a>
                                     <ul class="dropdown-menu mt-3" id="dropdownMenu">
-                                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('Profile')}}</a>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('profile')}}</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ route('orders.index') }}">{{__('My Orders')}}</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('orders.index') }}">{{__('my orders')}}</a>
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit"  class="dropdown-item">{{ __('logout') }}</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
-                                <ul class="user-login">
-                                    <li>
-                                        <form action="{{ route('logout') }}" method="POST">@csrf<button
-                                                class="btn btn-info" type="submit">{{ __('logout') }}</button></form>
-                                    </li>
-
-                                </ul>
                             @else
                                 <div class="user">
                                     <i class="lni lni-user"></i>

@@ -56,8 +56,9 @@
                     <div class="cart-single-list">
                         <div class="row align-items-center">
                             <div class="col-lg-1 col-md-1 col-12">
-                                <a href="{{ route('product.show', $item->product->slug) }}"><img src="{{asset('storage/'.$item->product->image) }}"
-                                        alt="#" height="170rem" width="200rem" ></a>
+                                <a href="{{ route('product.show', $item->product->slug) }}"><img
+                                        src="{{ asset('storage/' . $item->product->image) }}" alt="#"
+                                        height="170rem" width="200rem"></a>
                             </div>
                             <div class="col-lg-4 col-md-3 col-12">
                                 <h5 class="product-name"><a href="{{ route('product.show', $item->product->slug) }}">
@@ -110,13 +111,17 @@
                             <div class="col-lg-8 col-md-6 col-12">
                                 <div class="left">
                                     <div class="coupon">
-                                        <form action="#" target="_blank">
-                                            <input name="Coupon" placeholder="Enter Your Coupon">
-                                            <br><br>
-                                            <div class="button">
-                                                <button class="btn">Apply Coupon</button>
+
+                                            <ul>
+                                                <li >{{ __('Pending Orders') }}<span>{{ $orders_count }}</span>
+                                                </li>
+                                            </ul>
+
+                                            <div class="button mt-4">
+                                                <a href="{{route('orders.index')}}" class="btn">{{__('Go To the Pay Orders Page')}}</a>
                                             </div>
-                                        </form>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +139,7 @@
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('checkout') }}" class="btn">Checkout</a>
-                                        <a href="{{route('front.home')}}" class="btn btn-alt">Continue shopping</a>
+                                        <a href="{{ route('front.home') }}" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
                             </div>

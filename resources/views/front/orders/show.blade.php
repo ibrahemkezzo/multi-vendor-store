@@ -83,7 +83,7 @@
                                 </form>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                <p>{{ App\Helpers\Currency::formate($item->order_item->price * $item->order_item->quantity) }}</p>
+                                <p>{{ App\Helpers\Currency::formate($item->order_item->price * $item->order_item->quantity, 'USD') }}</p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <p>—</p> <!-- Assuming no per-item discount -->
@@ -109,16 +109,27 @@
                             <div class="col-lg-8 col-md-6 col-12">
                                 <div class="left">
                                     <div class="coupon">
-                                        <p class="text-muted">{{ __('Order') }} #{{ $order->number }} - {{ __('Status') }}: {{ $order->status }}</p>
-                                        <p>{{ __('Shipping') }}: {{ App\Helpers\Currency::formate($order->shipping, 'USD') }}</p>
-                                        <p>{{ __('Payment Status') }}: {{ $order->payment_status }}</p>
+                                        <ul>
+                                            <li>{{ __('Order') }} <span>#{{ $order->number }}</span></li>
+                                            <li>{{ __('Status') }}:<span>{{ $order->status }}</span></li>
+                                            <li>{{ __('Shipping') }}:<span>{{ App\Helpers\Currency::formate($order->shipping, 'USD') }}</span></li>
+                                            <li>{{ __('Payment Status') }}: <span>{{ $order->payment_status }}</span></li>
+                                        </ul>
+                                        <div class="button mt-4">
+                                            <a href="{{ route('order.payment.create', $order->id) }}" class="btn pay-order">{{ __('Pay Order') }}</a>
+                                        </div>
+                                            <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger delete-order" onclick="return confirm('{{ __('Are you sure you want to delete this order?') }}')">{{ __('Delete Order') }}</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>{{ __('Subtotal') }}<span>{{ App\Helpers\Currency::formate($order->total - $order->discount - $order->tax - $order->shipping) }}</span></li>
+                                        <li>{{ __('Subtotal') }}<span>{{ App\Helpers\Currency::formate($order->total - $order->discount - $order->tax - $order->shipping, 'USD') }}</span></li>
                                         <li>{{ __('Discount') }}<span>-{{ App\Helpers\Currency::formate($order->discount, 'USD') }}</span></li>
                                         <li>{{ __('Shipping') }}<span>{{ App\Helpers\Currency::formate($order->shipping, 'USD') }}</span></li>
                                         <li>{{ __('Tax') }}<span>{{ App\Helpers\Currency::formate($order->tax, 'USD') }}</span></li>
@@ -138,6 +149,20 @@
         </div>
     </div>
     <!--/ End Order Details -->
-
+@push('style')
+<style>
+.pay-order {
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: center;
+    padding: 12px 20px;
+}
+.delete-order {
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: center;
+    padding: 12px 20px;
+}
+</style>
+@endpush
 </x-front-layout>
-
