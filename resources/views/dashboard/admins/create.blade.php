@@ -16,9 +16,7 @@
             <div class="row">
 
                 @include('dashboard.admins._form', ['button_key' => 'save'])
-                <div class="form-group col-md-12">
-                    <x-form.input type='password' name='password' label='password' />
-                </div>
+                
                 <div class="form-group col-md-3 mt-4">
                     <a href="{{ route('dashboard.admins.index') }}"
                         class="btn btn-outline-secondary form-control">{{ 'cancel' }}</a>

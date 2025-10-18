@@ -14,7 +14,7 @@
         "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.8",
         "pusher/pusher-php-server": "^7.2",
-        "stripe/stripe-php": "^13.10",
+        "stripe/stripe-php": "^18.0",
         "symfony/intl": "^6.3"
     },
     "require-dev": {

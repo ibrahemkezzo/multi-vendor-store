@@ -52,7 +52,7 @@ class CartController extends Controller
         $product = Product::findOrFail($request->post('product_id'));
         $cart->add($product,$request->quantity);
         // $this->cart->add($product,$request->quantity);
-        return redirect()->back()->with('success','add product is done');
+        return redirect()->route('front.home')->with('message', ['type' => 'success', 'content' => __('add product to cart is done')]);
     }
 
 
@@ -70,7 +70,7 @@ class CartController extends Controller
 
         // $product = Product::findOrFail($request->post('product_id'));
         $cart->update($id,$request->quantity);
-        return redirect()->route('cart.index')->with('success','success updated');
+        return redirect()->route('cart.index')->with('message', ['type' => 'success', 'content' => __('updating product in the cart is successfuly')]);
     }
 
     /**
@@ -79,6 +79,6 @@ class CartController extends Controller
     public function destroy(CartRepository $cart ,string $id)
     {
         $cart->delete($id);
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index')->with('message', ['type' => 'draft', 'content' => __('deleting product from the cart is successfuly')]);
     }
 }

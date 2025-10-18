@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable =['store_id','user_id','number','status',
+    protected $fillable =['store_id','user_id','billing_id','shipping_id','number','status',
     'payment_status','payment_method','shipping','tax','discount','total',
     ];
     public function before($user,$ability){
@@ -28,10 +28,10 @@ class Order extends Model
     }
 
     public function shippingaddress(){
-        return $this->hasOne(OrderAddress::class)->where('type','=','shipping');
+        return $this->belongsTo(OrderAddress::class,'shipping_id');
     }
     public function billingaddress(){
-        return $this->hasOne(OrderAddress::class)->where('type','=','billing');
+        return $this->belongsTo(OrderAddress::class,'billing_id');
     }
 
     public function products(){

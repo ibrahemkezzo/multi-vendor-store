@@ -30,6 +30,8 @@ class Store extends Model
     'logo_image',
     'cover_image',
     'status',
+    'stripe_account_id',
+    'stripe_status',
     ];
 
     public function products(){
@@ -43,5 +45,9 @@ class Store extends Model
     public function admins()
     {
         return $this->hasMany(Admin::class, 'store_id', 'id');
+    }
+    public function isStripeReady()
+    {
+        return $this->stripe_status === 'active';
     }
 }

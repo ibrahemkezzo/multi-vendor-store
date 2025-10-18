@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', [HomeController::class, 'index'])
     ->name('front.home');
 
@@ -47,17 +46,17 @@ Route::get('/auth/{provider}/redirect', [SocialLoginController::class, 'redirect
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])
     ->name('auth.social.callback');
 
-Route::get('/orders/{order}/payment', [PaymentController::class, 'create'])
-    ->name('order.payment.create');
+// Route::get('/orders/{order}/payment', [PaymentController::class, 'create'])
+//     ->name('order.payment.create');
 
-Route::post('/orders/{order}/stripe/payment-intent', [PaymentController::class, 'createStripePaymentIntent'])
-    ->name('create.stripe.payment-intent');
+// Route::post('/orders/{order}/stripe/payment-intent', [PaymentController::class, 'createStripePaymentIntent'])
+//     ->name('create.stripe.payment-intent');
 
-Route::get('/orders/{order}/stripe/callback', [PaymentController::class, 'confirm'])
-    ->name('stripe.return');
+// Route::get('/orders/{order}/stripe/callback', [PaymentController::class, 'confirm'])
+//     ->name('stripe.return');
 
-Route::any('/stripe/webhook',[StripeWebhookController::class,'handle'])
-    ->name('stripe.webhook');
+// Route::any('/stripe/webhook',[StripeWebhookController::class,'handle'])
+//     ->name('stripe.webhook');
 
 Route::resource('/cart', CartController::class);
 
@@ -84,6 +83,7 @@ Route::get('/stores/create', [ShopStoreController::class, 'create'])->name('stor
 Route::post('/stores', [ShopStoreController::class, 'store'])->name('stores.store');
 Route::get('/department/filter_store/{id}',[DepartmentControeller::class,'filterStore'])->name('front.department.filter-store');
 
+
 Route::get('/department',[DepartmentControeller::class,'index'])->name('front.department.index');
 
 Route::get('/department/{id}',[DepartmentControeller::class,'show'])->name('front.department.show');
@@ -97,6 +97,12 @@ Route::middleware('auth:web')->group(function () {
     Route::put('/orders/{order}/items/{orderItem}', [OrderController::class, 'updateItem'])->name('orders.item.update');
     Route::delete('/orders/{order}/items/{orderItem}', [OrderController::class, 'destroyItem'])->name('orders.item.destroy');
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+    Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/payment/{order}', [PaymentController::class, 'index'])->name('payment.index');
+    // Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
+
 });
 
 Route::get('categories',[])->name('categories.index');

@@ -48,12 +48,15 @@ function(){
     Route::resource('/admins',AdminController::class);
     Route::resource('/users',UsersController::class);
     Route::resource('/orders',OrdersController::class);
+    Route::get('/stripe/refresh/{store_id}',[StoreController::class,'stripeRefresh'] )->name('stripe.refresh');
+    Route::get('/stripe/return/{store_id}', [StoreController::class,'stripeReturn'])->name('stripe.return');
+    Route::get('/stripe/onBoard/{store_id}', [StoreController::class,'dashboardStripeLink'])->name('stripe.dashboard');
 
 });
 //second way
 // Route::middleware('auth')->as('dashboard.')->prefix('dashboard')->group(function () {
 
-//     Route::get('/',[DashboardController::class,'index']);
+//     Route::get('/',[DashboardController::clasStoreControllers,'index']);
 
 //     Route::resource('/categories',CategoriesController::class);
 

@@ -98,7 +98,7 @@ class AdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         // dd($request->post('roles'));
-            $request->validate([
+            $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:admins,username,' . $admin->id, 'regex:/^\S*$/'],
             'email' => ['required', 'email', 'max:255', 'unique:admins,email,' . $admin->id],
@@ -106,12 +106,16 @@ class AdminController extends Controller
             'store_id' => ['nullable', 'exists:stores,id'],
             'roles' => ['required', 'array', 'min:1'],
             'roles.*' => ['exists:roles,id'],
+            // 'password' => ['nullable','string','min:8'],
         ], [
             'username.regex' => 'The username must not contain spaces.',
             'roles.required' => 'At least one role must be selected.',
         ]);
+        if(isset($request->password)){
+            $data['password'] = Hash::make($request->password);
+        }
 
-        $admin->update($request->all());
+        $admin->update($data);
         $admin->roles()->sync($request->post('roles'));
         return redirect()->route('dashboard.admins.index')->with('success','update admin success');
     }

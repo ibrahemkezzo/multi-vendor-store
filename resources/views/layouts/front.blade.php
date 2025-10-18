@@ -140,6 +140,9 @@
                                     <li>
                                         <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('dashboard.') }}">{{ __('Dashboard') }}</a>
+                                    </li>
                                 </ul>
                             @endauth
                         </div>
@@ -224,9 +227,9 @@
         <!-- Start Header Bottom -->
     </header>
     <!-- End Header Area -->
-
     {{-- {{dd(555)}} --}}
     {{ $breadcrumb ?? '' }}
+    <x-front.alert-message/>
     {{ $slot }}
     <!-- Start Footer Area -->
     <footer class="footer">

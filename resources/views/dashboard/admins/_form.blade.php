@@ -41,6 +41,9 @@
         </label>
     </div>
     @endforeach
+    <div class="form-group col-md-12">
+        <x-form.input type='password' name='password' label='password' />
+    </div>
 </fieldset>
 
 

@@ -66,7 +66,7 @@
                                 </h5>
                             </div>
                             <div class="col-6 col-md-2 col-lg-2">
-                                <p class="text-truncate">{{ $order->status }}</p>
+                                <p class="text-truncate">{{ $order->payment_status }}</p>
                             </div>
                             <div class="col-6 col-md-2 col-lg-1">
                                 <p>{{ $order->products->count() }}</p>
@@ -79,7 +79,7 @@
                                     {{ __('Show') }}
                                 </a>
                                 @if ($order->payment_status == 'pending')
-                                    <a class="btn btn-sm btn-primary" href="{{ route('order.payment.create', $order->id) }}">
+                                    <a class="btn btn-sm btn-primary" href="{{ route('payment.index', $order->id) }}">
                                         {{ __('Pay') }}
                                     </a>
                                 @endif

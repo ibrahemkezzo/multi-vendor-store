@@ -97,33 +97,33 @@
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
 
-                                                <div class="select-items">
-                                                    <x-form.checked name="addr[billing][status]" label="state"
-                                                    :options="['billing'=>'billing','shipping'=>'shipping']"/>
-                                                    <x-form.feedback name="addr[billing][status]"/>
+                                                <div class="form-input form">
+                                                    <x-form.selected name="addr[billing][country]" label="Country" :options="$countries"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
 
-                                                <div class="form-input form">
-                                                    <x-form.selected name="addr[billing][country]" label="Country" :options="$countries"/>
+                                                <div class="select-items">
+                                                    <input type="hidden" name="addr[billing][status]" value="
+                                                    pending">
+                                                    <x-form.feedback name="addr[billing][status]"/>
                                                 </div>
                                             </div>
                                         </div>
 
+{{--
                                         <div class="col-md-12">
                                             <div class="single-checkbox checkbox-style-3">
                                                 <input type="checkbox" id="checkbox-3">
                                                 <label for="checkbox-3"><span></span></label>
                                                 <p>My delivery and mailing addresses are the same.</p>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <div class="single-form button">
-                                                <a class="btn collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">next
-                                                    step</a>
+                                                <a class="btn collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">next step</a>
                                             </div>
                                         </div>
                                     </div>
@@ -193,19 +193,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label>Region/State</label>
-                                                <div class="select-items">
-                                                    <input type="text" name="addr[shipping][status]" placeholder="Post Code">
-                                                    <x-form.feedback name="addr[shipping][status]"/>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
                                                 <div class="form-input form">
                                                     <x-form.selected name="addr[shipping][country]" label="Country" :options="$countries"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                {{-- <label>Region/State</label> --}}
+                                                <div class="select-items">
+                                                    <input type="hidden" name="addr[shipping][status]" value="
+                                                    pending">
+                                                    <x-form.feedback name="addr[shipping][status]"/>
                                                 </div>
                                             </div>
                                         </div>
