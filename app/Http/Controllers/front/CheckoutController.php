@@ -105,12 +105,12 @@ class  CheckoutController extends Controller
             // dd($billing->billingOrders,$shipping->shippingOrders);
             DB::commit();
             // Empty the cart for the authenticated user
-            $cart->empty();
+
             // Create Stripe Checkout Session
            $checkoutSessions = [];
             foreach ($orders as $order) {
                 $applicationFee = $order->total * 100 * 0.05; // 5% fee for platform
-
+                dd($applicationFee);
                 $checkoutSession = $stripe->checkout->sessions->create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[
@@ -143,6 +143,7 @@ class  CheckoutController extends Controller
 
             // Redirect to the first checkout session
             $firstSessionUrl = reset($checkoutSessions);
+            $cart->empty();
             return redirect($firstSessionUrl);
             // return redirect()->route('payment.index', $billing->id)
             //                 ->with('success', __('Orders created successfully. Proceed to payment.'));

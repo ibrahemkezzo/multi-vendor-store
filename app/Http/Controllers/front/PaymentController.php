@@ -26,22 +26,8 @@ class PaymentController extends Controller
 
         $stripe = new StripeClient(config('services.stripe.secret_key'));
 
-
-        foreach ($order->items as $item) {
-                $lineItems[] = [
-                    'price_data' => [
-                        'currency' => 'usd',
-                        'product_data' => [
-                            'name' => 'product :' . $item->product_name . ' from ' . $order->store->name,
-                        ],
-                        'unit_amount' => $item->price * 100, // Convert to cents
-                    ],
-                    'quantity' => $item->quantity,
-                ];
-                $totalAmount = $item->total * 100;
-            }
-        $applicationFee = $totalAmount * 0.05; // 5% fee for platform
-
+        $applicationFee = $totalAmount* 100 * 0.05; // 5% fee for platform
+        
         $checkoutSession = $stripe->checkout->sessions->create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[

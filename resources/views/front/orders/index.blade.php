@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-6 col-md-3 col-lg-4">
                                 <h5 class="product-name">
-                                    <a href="{{ route('shop.stores.show', $order->store_id) }}" class="text-truncate">
+                                    <a href="{{ route('shop.stores.show', $order->store->slug) }}" class="text-truncate">
                                         {{ $order->store->name }}
                                     </a>
                                 </h5>
@@ -103,7 +103,7 @@
 @push('style')
 <style>
     .cart-single-list a:hover {
-        color: white;
+        color: #0d6efd;
     }
     .cart-single-list .product-name {
         white-space: nowrap;

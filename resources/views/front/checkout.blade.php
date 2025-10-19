@@ -322,11 +322,11 @@
                             <a href="javascript:void(0)" class="btn btn-alt">Checkout</a>
                         </div>
                     </div>
-                    <div class="checkout-sidebar-banner mt-30">
+                    {{-- <div class="checkout-sidebar-banner mt-30">
                         <a href="product-grids.html">
                             <img src="assets/images/banner/banner.jpg" alt="#">
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

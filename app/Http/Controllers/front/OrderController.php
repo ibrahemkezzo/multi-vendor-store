@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $orders = Order::with(['store:id,name', 'user:id,name'])
+        $orders = Order::with(['store:id,name,slug', 'user:id,name'])
                        ->where('user_id', $user->id)
                        ->orderBy('created_at', 'DESC')
                        ->paginate(5);
