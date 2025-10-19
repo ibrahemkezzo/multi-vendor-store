@@ -110,7 +110,6 @@ class  CheckoutController extends Controller
            $checkoutSessions = [];
             foreach ($orders as $order) {
                 $applicationFee = $order->total * 100 * 0.05; // 5% fee for platform
-                dd($applicationFee);
                 $checkoutSession = $stripe->checkout->sessions->create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[
