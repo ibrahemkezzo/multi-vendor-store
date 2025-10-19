@@ -105,7 +105,7 @@ class  CheckoutController extends Controller
             // dd($billing->billingOrders,$shipping->shippingOrders);
             DB::commit();
             // Empty the cart for the authenticated user
-            // $cart->empty();
+            $cart->empty();
             // Create Stripe Checkout Session
            $checkoutSessions = [];
             foreach ($orders as $order) {
